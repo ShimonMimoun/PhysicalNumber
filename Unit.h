@@ -1,3 +1,5 @@
+#pragma once
+
 #include <iostream>
 using namespace std;
 
@@ -5,7 +7,7 @@ namespace ariel{
 
 enum Unit {
 
-    KM , M , CM , SEC, M ,HOER , G , KG, TON
-}
+    KM , M , CM , SEC,HOER , G , KG, TON
+};
 
 };
