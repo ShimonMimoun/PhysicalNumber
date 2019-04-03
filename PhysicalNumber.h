@@ -7,15 +7,17 @@ namespace ariel{
 
 class PhysicalNumber {
 
-public:
+private:
 int value_number;
+int unit_type;
 
+public:
 //---------------------------------
 //constractors
 //---------------------------------
 
 
-PhysicalNumber(int numb,int type);
+PhysicalNumber(int,int);
 
 
 //---------------------------------
@@ -24,6 +26,8 @@ PhysicalNumber(int numb,int type);
 
 const PhysicalNumber operator+(const PhysicalNumber& phyNum) const;
 const PhysicalNumber operator-(const PhysicalNumber& phyNum) const;
+
+
 PhysicalNumber& operator+=(const PhysicalNumber& phyNum);
 PhysicalNumber& operator-=(const PhysicalNumber& phyNum);
 PhysicalNumber& operator=(const PhysicalNumber& phyNum);
@@ -40,7 +44,7 @@ const PhysicalNumber operator-() const ;
 // < , > <= , >=  friends globals opreations
 //---------------------------------
 
-friend const bool operator==(const PhysicalNumber phy1 , const PhysicalNumber phy2);
+friend const bool operator==(const PhysicalNumber phy1 , const PhysicalNumber phy2) {return phy1.value_number == phy2.value_number;};
 friend const bool operator<(const PhysicalNumber phy1 , const PhysicalNumber phy2) {return phy1 < phy2;};
 friend const bool operator>(const PhysicalNumber phy1 , const PhysicalNumber phy2) {return phy1 > phy2;};
 friend const bool operator<=(const PhysicalNumber phy1 , const PhysicalNumber phy2) {return phy1 <= phy2;};
@@ -59,8 +63,8 @@ PhysicalNumber& operator--();
 // I/O friends operations
 //---------------------------------
 
-friend ostream& operator<< (ostream& os, const PhysicalNumber& c);
-friend istream& operator>> (istream& is, PhysicalNumber& c);
+friend ostream& operator<<(ostream& os, const PhysicalNumber& c);
+friend istream& operator>>(istream& is, PhysicalNumber& c);
 
 
 };
@@ -68,17 +72,6 @@ friend istream& operator>> (istream& is, PhysicalNumber& c);
 //---------------------------------
 // implementation of friends operators
 //---------------------------------
-
-ostream& operator<< (ostream& os, const PhysicalNumber& c){
-    return os;
-}
-
-istream& operator>> (istream& is, PhysicalNumber& c) {
-
-    return is;
-}
-
-
 
 
 

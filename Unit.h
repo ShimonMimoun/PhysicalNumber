@@ -7,7 +7,7 @@ namespace ariel{
 
 enum Unit {
 
-    KM , M , CM , SEC,HOER , G , KG, TON
+    KM , M , CM , SEC,HOUR , G , KG, TON, MIN
 };
 
 };

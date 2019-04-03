@@ -23,11 +23,11 @@ int main() {
     PhysicalNumber b(300, Unit::M);
     PhysicalNumber c(2, Unit::HOUR);
     PhysicalNumber d(30, Unit::MIN);
-    PhysicalNumber e(44,Unit::TON )
+    PhysicalNumber e(44,Unit::TON);
     PhysicalNumber f(2, Unit::SEC);
     PhysicalNumber g(500, Unit::CM);
-    PhysicalNumber h(4, Unit::G);;
-    PhysicalNumber j(71,Unit::KG )
+    PhysicalNumber h(4, Unit::G);
+    PhysicalNumber j(71,Unit::KG);
 
 
     testcase
@@ -103,13 +103,6 @@ int main() {
      .CHECK_OUTPUT((a += PhysicalNumber(1, Unit::TON)), "2000[kg]")
        .CHECK_OUTPUT((b += PhysicalNumber(1, Unit::KM)), "1033[m]")
        .CHECK_OUTPUT((c += PhysicalNumber(6, Unit::TON)), "6[ton]")
-
-
-
-
-
-
-
 
 
 
