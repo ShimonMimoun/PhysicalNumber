@@ -100,7 +100,9 @@ int main() {
     .CHECK_OUTPUT(length_01--, "5001[m]") // lenght chack postfix --
     .CHECK_OUTPUT(PhysicalNumber(50, Unit::KM)++, "51[km]") //  chack postfix ++
     .CHECK_OUTPUT(PhysicalNumber(50, Unit::CM)-- ,"49[cm]") // lenght chack postfix --
-
+    .CHECK_OUTPUT(time_01, "1[min]") 
+    .CHECK_OUTPUT((time_01 += PhysicalNumber(1, Unit::MIN)), "2[min]") // min=min +min
+    .CHECK_OUTPUT((time_01 += PhysicalNumber(60, Unit::SEC)), "3[min]") //min=min +sec
 
       .print(cout, /*show_grade=*/false);
       grade = testcase.grade();

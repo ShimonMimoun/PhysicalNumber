@@ -49,13 +49,13 @@ double PhysicalNumber::convertor (const PhysicalNumber& phy) const{
                 break;
             case HOUR:
                 if(phy.unit_type==HOUR) return 1;
-                else if (phy.unit_type==MIN) return 0.01;
-                else return 0.0001;
+                else if (phy.unit_type==MIN) return 0.0166666667;
+                else return 0.0002777778;
                 break;
             case MIN:
                 if(phy.unit_type==HOUR) return 60;
                 else if (phy.unit_type==MIN) return 1;
-                else return 0.01;
+                else return 0.01666666;
                 break;
             case SEC:
                 if(phy.unit_type==HOUR) return 60*60;
