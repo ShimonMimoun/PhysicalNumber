@@ -89,7 +89,19 @@ int main() {
     .CHECK_EQUAL((length_01<=PhysicalNumber(5, Unit::CM)),false) //5000[m]<= 5 Cm 
     .CHECK_EQUAL((length_01!=PhysicalNumber(50, Unit::KM)),true) //5000[m]!=50 km 
     .CHECK_EQUAL((PhysicalNumber(5000, Unit::M)!=PhysicalNumber(5, Unit::KM)) ,false) //5000 m!= 5 Km 
-    
+    .CHECK_OUTPUT(++length_01 , "5001[m]") // lenght++
+    .CHECK_OUTPUT(++length_01 , "5002[m]") // verif lenght++
+    .CHECK_OUTPUT(--length_01 , "5001[m]") // verif lenght--
+    .CHECK_OUTPUT(length_01+length_01 , "10002[m]") // lenght+lenght
+    .CHECK_OUTPUT(length_01+PhysicalNumber(50, Unit::M) , "5051[m]") // lenght+other
+    .CHECK_OUTPUT(length_01-length_01 , "0[m]") // lenght-lenght
+    .CHECK_OUTPUT(length_01-PhysicalNumber(50, Unit::M) , "4951[m]") // lenght-other
+    .CHECK_OUTPUT(length_01++, "5002[m]") // lenght chack postfix ++
+    .CHECK_OUTPUT(length_01--, "5001[m]") // lenght chack postfix --
+    .CHECK_OUTPUT(PhysicalNumber(50, Unit::KM)++, "51[km]") //  chack postfix ++
+    .CHECK_OUTPUT(PhysicalNumber(50, Unit::CM)-- ,"49[cm]") // lenght chack postfix --
+
+
 
 
       .print(cout, /*show_grade=*/false);
