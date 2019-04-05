@@ -7,7 +7,9 @@
 #include <iostream>
 using namespace std;
 using namespace ariel;
-#define _KM 10000;
+#include <sstream>
+#include <string.h>
+
 
 
 PhysicalNumber::PhysicalNumber(double num , Unit type):value_number(num) ,unit_type(type){}
@@ -235,6 +237,28 @@ ostream& ariel::operator<<(ostream& os, const PhysicalNumber& c){
         return os;
 }
 istream& ariel::operator>>(istream& is, PhysicalNumber& c){
+
+string enumType[9] = {"km" , "m" , "cm" , "hour" , "min", "sec", "ton" ,"kg", "g"};
+
+        std::string input,s;
+        is>>input;
+        int check = -1;
+        std::istringstream iss(input);
+        getline( iss, s, '[' );
+         c.value_number = std::stoi(s);
+        getline( iss, s, ']' );
+
+    Unit curr  = Unit::KM;
+    for(size_t i = 0; i <= Unit::G; i++) {
+    if(enumType[i] == s) {
+        c.unit_type = (Unit)i;
+        check = 1;
+    }
+ }
+ if(check == -1){
+    throw std::invalid_argument("you cant use that type");
+
+ }
     return is;
 }
 
