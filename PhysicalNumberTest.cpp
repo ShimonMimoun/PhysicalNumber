@@ -100,11 +100,6 @@ int main() {
     .CHECK_OUTPUT(length_01--, "5001[m]") // lenght chack postfix --
     .CHECK_OUTPUT(PhysicalNumber(50, Unit::KM)++, "51[km]") //  chack postfix ++
     .CHECK_OUTPUT(PhysicalNumber(50, Unit::CM)-- ,"49[cm]") // lenght chack postfix --
-<<<<<<< HEAD
-    .CHECK_OUTPUT(time_01, "1[min]") 
-    .CHECK_OUTPUT((time_01 += PhysicalNumber(1, Unit::MIN)), "2[min]") // min=min +min
-    .CHECK_OUTPUT((time_01 += PhysicalNumber(60, Unit::SEC)), "3[min]") //min=min +sec
-=======
 
 .setname("----------------------------------------------------------")
       .setname("Verification of Masss ")
@@ -145,11 +140,8 @@ int main() {
     .CHECK_OUTPUT(masse_01-PhysicalNumber(50, Unit::KG) , "4951[kg]") // lenght-other
     .CHECK_OUTPUT(masse_01++, "5002[kg]") // lenght chack postfix ++
     .CHECK_OUTPUT(masse_01--, "5001[kg]") // lenght chack postfix --
-    .CHECK_OUTPUT(PhysicalNumber(50, Unit::KG)++, "51[kg]") //  chack postfix ++
-    .CHECK_OUTPUT(PhysicalNumber(50, Unit::G)-- ,"49[g]") // lenght chack postfix --
-
->>>>>>> 6a5b2aad5644a2ef69b4e0bbc60f7d5b108724e1
-
+    .CHECK_OUTPUT(PhysicalNumber(50, Unit::KG)++, "51[kg]") //  check postfix ++
+    .CHECK_OUTPUT(PhysicalNumber(50, Unit::G)-- ,"49[g]") // lenght check postfix --
       .print(cout, /*show_grade=*/false);
       grade = testcase.grade();
     } else {
