@@ -35,13 +35,6 @@ PhysicalNumber(double,Unit);
 PhysicalNumber() = default;
 
 
-Unit getType() {
-    return unit_type;
-}
-double getValueNum() {
-    return value_number;
-}
-
 //---------------------------------
 // +,- +=  Math opreation , ect..
 //---------------------------------
