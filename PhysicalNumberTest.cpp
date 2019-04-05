@@ -75,10 +75,20 @@ int main() {
     .CHECK_OUTPUT(+length_01, "5000[m]") // +lenght (no change )
     .CHECK_EQUAL((length_01==PhysicalNumber(5, Unit::KM)),true) // 5000[m]==5km
     .CHECK_EQUAL((length_01==PhysicalNumber(5, Unit::M)),false) // 5000[m]==5m 
+    .CHECK_EQUAL((PhysicalNumber(5, Unit::KM))<(PhysicalNumber(5, Unit::M)),false) // 5KM <5M
     .CHECK_EQUAL((length_01<PhysicalNumber(50, Unit::KM)),true) //5000[m]<50 km 
     .CHECK_EQUAL((length_01<PhysicalNumber(5, Unit::CM)),false) //5000[m]< 5 Cm
     .CHECK_EQUAL((length_01>PhysicalNumber(11, Unit::KM)),false) // 5000[m]> 11 KM 
-    .CHECK_EQUAL((length_01>PhysicalNumber(2, Unit::CM)),true) // 5000[m]>2  cm
+    .CHECK_EQUAL((PhysicalNumber(5, Unit::KM))>(PhysicalNumber(100, Unit::M)),true)//5km>100M
+    .CHECK_EQUAL((length_01>PhysicalNumber(2, Unit::CM)),true) // 5000[m]>=2  cm
+    .CHECK_EQUAL((length_01>=PhysicalNumber(50, Unit::M)),true) // 5000[m]>= 11 KM 
+    .CHECK_EQUAL((PhysicalNumber(5, Unit::KM))>=(PhysicalNumber(100, Unit::M)),true)//5km>=100M
+    .CHECK_EQUAL((length_01>=PhysicalNumber(4, Unit::KM)),true) // 5000[m]>4 km
+    .CHECK_EQUAL((PhysicalNumber(10, Unit::CM))<=(PhysicalNumber(10, Unit::CM)),true ) // 10CM <=10M
+    .CHECK_EQUAL((length_01<=PhysicalNumber(50, Unit::KM)),true) //5000[m]<=50 km 
+    .CHECK_EQUAL((length_01<=PhysicalNumber(5, Unit::CM)),false) //5000[m]<= 5 Cm 
+    .CHECK_EQUAL((length_01!=PhysicalNumber(50, Unit::KM)),true) //5000[m]!=50 km 
+    .CHECK_EQUAL((PhysicalNumber(5000, Unit::M)!=PhysicalNumber(5, Unit::KM)) ,false) //5000 m!= 5 Km 
 
 
       .print(cout, /*show_grade=*/false);

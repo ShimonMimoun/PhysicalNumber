@@ -35,7 +35,9 @@ PhysicalNumber(double,Unit);
 PhysicalNumber() = default;
 
 
-Unit getType() {
+Unit 
+
+() {
     return unit_type;
 }
 double getValueNum() {
