@@ -62,6 +62,8 @@ int main() {
       .setname("Test Private")
       .setname("----------------------------------------------------------")
       .setname("Verification of Lenght ")
+
+
       .CHECK_OUTPUT(length_01, "1[m]") 
     .CHECK_OUTPUT((length_01 += PhysicalNumber(1, Unit::M)), "2[m]") // m=m +m
     .CHECK_OUTPUT((length_01 += PhysicalNumber(5, Unit::CM)), "2.05[m]") //m=m + cm
@@ -140,8 +142,62 @@ int main() {
     .CHECK_OUTPUT(masse_01-PhysicalNumber(50, Unit::KG) , "4951[kg]") // lenght-other
     .CHECK_OUTPUT(masse_01++, "5002[kg]") // lenght chack postfix ++
     .CHECK_OUTPUT(masse_01--, "5001[kg]") // lenght chack postfix --
-    .CHECK_OUTPUT(PhysicalNumber(50, Unit::KG)++, "51[kg]") //  check postfix ++
-    .CHECK_OUTPUT(PhysicalNumber(50, Unit::G)-- ,"49[g]") // lenght check postfix --
+    .CHECK_OUTPUT(PhysicalNumber(50, Unit::KG)++, "51[kg]") //  chack postfix ++
+    .CHECK_OUTPUT(PhysicalNumber(50, Unit::G)-- ,"49[g]") // lenght chack postfix --
+
+
+.setname("----------------------------------------------------------")
+      .setname("Verification of Hour ")
+ 
+    .CHECK_OUTPUT(time_01, "1[min]") 
+    .CHECK_OUTPUT(PhysicalNumber(1, Unit::HOUR)+PhysicalNumber(10, Unit::MIN), "1.16667[hour]") 
+    .CHECK_OUTPUT((time_01 += PhysicalNumber(1, Unit::MIN)), "2[min]") // min=min +min
+    .CHECK_OUTPUT((time_01 += PhysicalNumber(5, Unit::SEC)), "2.08333[min]") //min=min +sec
+    .CHECK_OUTPUT((time_01 += PhysicalNumber(10, Unit::HOUR)), "602.083[min]") //min= min +hour
+    .CHECK_OUTPUT((time_01 -= PhysicalNumber(10, Unit::HOUR)), "2.08333[min]") // min=min-hour 
+    .CHECK_OUTPUT((time_01 -= PhysicalNumber(5, Unit::SEC)), "2[min]") // min=min-sec 
+    .CHECK_OUTPUT((time_01 -= PhysicalNumber(1, Unit::MIN)), "1[min]") // min=min-min 
+    .CHECK_OUTPUT((time_01 = PhysicalNumber(2, Unit::MIN)), "2[min]") //  min=  min (other) 
+    .CHECK_OUTPUT((time_01 = PhysicalNumber(5, Unit::HOUR)), "300[min]") //  min=  HOUR (other) 
+    .CHECK_OUTPUT(-time_01 , "-300[min]") // -lenght
+    .CHECK_OUTPUT(+time_01, "300[min]") // +lenght (no change )
+    .CHECK_EQUAL((time_01==PhysicalNumber(5, Unit::HOUR)),true) // 300[min]==hour
+    .CHECK_EQUAL((time_01==PhysicalNumber(5, Unit::SEC)),false) // 300[min]==5sec 
+    .CHECK_EQUAL((PhysicalNumber(5, Unit::HOUR))<(PhysicalNumber(5, Unit::SEC)),false) // 5 HOUR <5 sec
+    .CHECK_EQUAL((time_01<PhysicalNumber(50, Unit::HOUR)),true) //300[min]<50 hour 
+    .CHECK_EQUAL((time_01<PhysicalNumber(5, Unit::SEC)),false) //300[min]< 5 SEC
+    .CHECK_EQUAL((time_01>PhysicalNumber(11, Unit::HOUR)),false) // 300[min]> 11 hour 
+    .CHECK_EQUAL((PhysicalNumber(5, Unit::HOUR))>(PhysicalNumber(100, Unit::SEC)),true)//5 hour>100sec
+    .CHECK_EQUAL((time_01>PhysicalNumber(2, Unit::SEC)),true) // 300[min]>=2 sec
+    .CHECK_EQUAL((time_01>=PhysicalNumber(50, Unit::MIN)),true) // 300[min]>= 50 MIN
+    .CHECK_EQUAL((PhysicalNumber(5, Unit::HOUR))>=(PhysicalNumber(100, Unit::SEC)),true)//5 HOUR>=100 SEC
+    .CHECK_EQUAL((time_01>=PhysicalNumber(4, Unit::HOUR)),true) // 300[min]>4 HOUR
+    .CHECK_EQUAL((PhysicalNumber(10, Unit::SEC))<=(PhysicalNumber(10, Unit::SEC)),true ) // 10sec <=10sec
+    .CHECK_EQUAL((time_01<=PhysicalNumber(50, Unit::HOUR)),true) //300[min]<=50 HOur
+    .CHECK_EQUAL((time_01<=PhysicalNumber(5, Unit::SEC)),false) //300[min]<= 5 sec
+    .CHECK_EQUAL((time_01!=PhysicalNumber(50, Unit::HOUR)),true) //300[min]!=50 HOUR
+    .CHECK_EQUAL((PhysicalNumber(5000, Unit::HOUR)!=PhysicalNumber(300000, Unit::MIN)) ,false) //5000[HOUR]!= 300000 MIN
+    .CHECK_EQUAL((PhysicalNumber(5000, Unit::HOUR)!=PhysicalNumber(5000, Unit::HOUR)) ,false) //5000[HOUR]!= 300000 MIN
+
+    .CHECK_OUTPUT(++time_01 , "301[min]") // lenght++
+    .CHECK_OUTPUT(++time_01 , "302[min]") // verif lenght++
+    .CHECK_OUTPUT(--time_01 , "301[min]") // verif lenght--
+    .CHECK_OUTPUT(time_01+time_01 , "602[min]") // lenght+lenght
+    .CHECK_OUTPUT(time_01+PhysicalNumber(50, Unit::MIN) , "351[min]") // lenght+other
+    .CHECK_OUTPUT(time_01-time_01 , "0[min]") // lenght-lenght
+    .CHECK_OUTPUT(time_01-PhysicalNumber(50, Unit::MIN) , "251[min]") // lenght-other
+    .CHECK_OUTPUT(time_01++, "302[min]") // lenght chack postfix ++
+    .CHECK_OUTPUT(time_01--, "301[min]") // lenght chack postfix --
+    .CHECK_OUTPUT(PhysicalNumber(50, Unit::HOUR)++, "51[hour]") //  chack postfix ++
+    .CHECK_OUTPUT(PhysicalNumber(50, Unit::SEC)-- ,"49[sec]") // lenght chack postfix --
+
+   .setname("----------------------------------------------------------")
+      .setname("Verification of TROW  ")
+
+
+
+      
+
       .print(cout, /*show_grade=*/false);
       grade = testcase.grade();
     } else {
