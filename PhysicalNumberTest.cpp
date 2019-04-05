@@ -100,9 +100,55 @@ int main() {
     .CHECK_OUTPUT(length_01--, "5001[m]") // lenght chack postfix --
     .CHECK_OUTPUT(PhysicalNumber(50, Unit::KM)++, "51[km]") //  chack postfix ++
     .CHECK_OUTPUT(PhysicalNumber(50, Unit::CM)-- ,"49[cm]") // lenght chack postfix --
+<<<<<<< HEAD
     .CHECK_OUTPUT(time_01, "1[min]") 
     .CHECK_OUTPUT((time_01 += PhysicalNumber(1, Unit::MIN)), "2[min]") // min=min +min
     .CHECK_OUTPUT((time_01 += PhysicalNumber(60, Unit::SEC)), "3[min]") //min=min +sec
+=======
+
+.setname("----------------------------------------------------------")
+      .setname("Verification of Masss ")
+ 
+    .CHECK_OUTPUT(masse_01, "1[kg]") 
+    .CHECK_OUTPUT((masse_01 += PhysicalNumber(1, Unit::KG)), "2[kg]") // kg=kg +kg
+    .CHECK_OUTPUT((masse_01 += PhysicalNumber(5, Unit::G)), "2.005[kg]") //kg=kg +g
+    .CHECK_OUTPUT((masse_01 += PhysicalNumber(10, Unit::TON)), "10002[kg]") //kg= kg +ton
+    .CHECK_OUTPUT((masse_01 -= PhysicalNumber(10, Unit::TON)), "2.005[kg]") // Kg=kg-ton 
+    .CHECK_OUTPUT((masse_01 -= PhysicalNumber(5, Unit::G)), "2[kg]") // Kg=kg-g 
+    .CHECK_OUTPUT((masse_01 -= PhysicalNumber(1, Unit::KG)), "1[kg]") // Kg=kg-KG 
+    .CHECK_OUTPUT((masse_01 = PhysicalNumber(2, Unit::KG)), "2[kg]") //  kg=  kg (other) 
+    .CHECK_OUTPUT((masse_01 = PhysicalNumber(5, Unit::TON)), "5000[kg]") //  kg=  TON (other) 
+    .CHECK_OUTPUT(-masse_01 , "-5000[kg]") // -lenght
+    .CHECK_OUTPUT(+masse_01, "5000[kg]") // +lenght (no change )
+    .CHECK_EQUAL((masse_01==PhysicalNumber(5, Unit::TON)),true) // 5000[kg]==5TON
+    .CHECK_EQUAL((masse_01==PhysicalNumber(5, Unit::G)),false) // 5000[kg]==5g 
+    .CHECK_EQUAL((PhysicalNumber(5, Unit::TON))<(PhysicalNumber(5, Unit::G)),false) // 5Ton <5g
+    .CHECK_EQUAL((masse_01<PhysicalNumber(50, Unit::TON)),true) //5000[kg]<50 ton 
+    .CHECK_EQUAL((masse_01<PhysicalNumber(5, Unit::G)),false) //5000[kg]< 5 G
+    .CHECK_EQUAL((masse_01>PhysicalNumber(11, Unit::TON)),false) // 5000[kg]> 11 ton 
+    .CHECK_EQUAL((PhysicalNumber(5, Unit::TON))>(PhysicalNumber(100, Unit::G)),true)//5 Ton>100g
+    .CHECK_EQUAL((masse_01>PhysicalNumber(2, Unit::G)),true) // 5000[kg]>=2  g
+    .CHECK_EQUAL((masse_01>=PhysicalNumber(50, Unit::KG)),true) // 5000[KG]>= 5 Ton 
+    .CHECK_EQUAL((PhysicalNumber(5, Unit::TON))>=(PhysicalNumber(100, Unit::G)),true)//5ton>=100g
+    .CHECK_EQUAL((masse_01>=PhysicalNumber(4, Unit::TON)),true) // 5000[kg]>4 ton
+    .CHECK_EQUAL((PhysicalNumber(10, Unit::G))<=(PhysicalNumber(10, Unit::G)),true ) // 10G <=10g
+    .CHECK_EQUAL((masse_01<=PhysicalNumber(50, Unit::TON)),true) //5000[kg]<=50 ton
+    .CHECK_EQUAL((masse_01<=PhysicalNumber(5, Unit::G)),false) //5000[KG]<= 5 g 
+    .CHECK_EQUAL((masse_01!=PhysicalNumber(50, Unit::TON)),true) //5000[kg]!=50 ton 
+    .CHECK_EQUAL((PhysicalNumber(5000, Unit::KG)!=PhysicalNumber(5, Unit::TON)) ,false) //5000 kg!= 5ton 
+    .CHECK_OUTPUT(++masse_01 , "5001[kg]") // lenght++
+    .CHECK_OUTPUT(++masse_01 , "5002[kg]") // verif lenght++
+    .CHECK_OUTPUT(--masse_01 , "5001[kg]") // verif lenght--
+    .CHECK_OUTPUT(masse_01+masse_01 , "10002[kg]") // lenght+lenght
+    .CHECK_OUTPUT(masse_01+PhysicalNumber(50, Unit::KG) , "5051[kg]") // lenght+other
+    .CHECK_OUTPUT(masse_01-masse_01 , "0[kg]") // lenght-lenght
+    .CHECK_OUTPUT(masse_01-PhysicalNumber(50, Unit::KG) , "4951[kg]") // lenght-other
+    .CHECK_OUTPUT(masse_01++, "5002[kg]") // lenght chack postfix ++
+    .CHECK_OUTPUT(masse_01--, "5001[kg]") // lenght chack postfix --
+    .CHECK_OUTPUT(PhysicalNumber(50, Unit::KG)++, "51[kg]") //  chack postfix ++
+    .CHECK_OUTPUT(PhysicalNumber(50, Unit::G)-- ,"49[g]") // lenght chack postfix --
+
+>>>>>>> 6a5b2aad5644a2ef69b4e0bbc60f7d5b108724e1
 
       .print(cout, /*show_grade=*/false);
       grade = testcase.grade();
