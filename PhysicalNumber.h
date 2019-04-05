@@ -8,7 +8,7 @@ namespace ariel{
 class PhysicalNumber {
 
 private:
-int value_number;
+double value_number;
 Unit unit_type;
 
 //---------------------------------
@@ -16,7 +16,7 @@ Unit unit_type;
 //---------------------------------
 
 bool checkType (const PhysicalNumber& phy1 ,const PhysicalNumber& phy2) const;
-double convertor (PhysicalNumber& phy) const;
+double convertor (const PhysicalNumber& phy) const;
 
 
 public:
@@ -25,7 +25,7 @@ public:
 //---------------------------------
 
 
-PhysicalNumber(int,Unit);
+PhysicalNumber(double,Unit);
 ~PhysicalNumber();
 PhysicalNumber() = default;
 
@@ -85,5 +85,8 @@ friend istream& operator>>(istream& is, PhysicalNumber& c);
 
 
 };
+
+ostream& operator<<(ostream& os, const PhysicalNumber& c);
+istream& operator>>(istream& is, PhysicalNumber& c);
 
 }
