@@ -70,7 +70,7 @@ double PhysicalNumber::convertor (const PhysicalNumber& phy) const{
             case KG:
                 if(phy.unit_type==TON) return 1000;
                 else if (phy.unit_type==KG) return 1;
-                else return 1000;
+                else return 0.001;
                 break;
             case G:
                 if(phy.unit_type==TON) return 1000*1000;

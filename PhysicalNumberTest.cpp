@@ -102,8 +102,6 @@ int main() {
     .CHECK_OUTPUT(PhysicalNumber(50, Unit::CM)-- ,"49[cm]") // lenght chack postfix --
 
 
-
-
       .print(cout, /*show_grade=*/false);
       grade = testcase.grade();
     } else {
