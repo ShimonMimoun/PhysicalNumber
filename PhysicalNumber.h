@@ -9,7 +9,15 @@ class PhysicalNumber {
 
 private:
 int value_number;
-int unit_type;
+Unit unit_type;
+
+//---------------------------------
+//Helping Functions
+//---------------------------------
+
+bool checkType (const PhysicalNumber& phy1 ,const PhysicalNumber& phy2) const;
+double convertor (PhysicalNumber& phy) const;
+
 
 public:
 //---------------------------------
@@ -17,8 +25,17 @@ public:
 //---------------------------------
 
 
-PhysicalNumber(int,int);
+PhysicalNumber(int,Unit);
+~PhysicalNumber();
+PhysicalNumber() = default;
 
+
+Unit getType() {
+    return unit_type;
+}
+double getValueNum() {
+    return value_number;
+}
 
 //---------------------------------
 // +,- +=  Math opreation , ect..
@@ -44,12 +61,12 @@ const PhysicalNumber operator-() const ;
 // < , > <= , >=  friends globals opreations
 //---------------------------------
 
-friend const bool operator==(const PhysicalNumber phy1 , const PhysicalNumber phy2) {return phy1.value_number == phy2.value_number;};
+friend const bool operator==(const PhysicalNumber phy1 , const PhysicalNumber phy2) {return phy1.unit_type == phy2.unit_type;};
 friend const bool operator<(const PhysicalNumber phy1 , const PhysicalNumber phy2) {return phy1 < phy2;};
 friend const bool operator>(const PhysicalNumber phy1 , const PhysicalNumber phy2) {return phy1 > phy2;};
 friend const bool operator<=(const PhysicalNumber phy1 , const PhysicalNumber phy2) {return phy1 <= phy2;};
 friend const bool operator>=(const PhysicalNumber phy1 , const PhysicalNumber phy2) {return phy1 >= phy2;};
-friend const bool operator!=(const PhysicalNumber phy1 , const PhysicalNumber phy2) {return !(phy1==phy2);};
+friend const bool operator!=(const PhysicalNumber phy1 , const PhysicalNumber phy2) {return !(phy1.unit_type==phy2.unit_type);};
 
 //---------------------------------
 // increment & decrement operations
@@ -68,11 +85,5 @@ friend istream& operator>>(istream& is, PhysicalNumber& c);
 
 
 };
-
-//---------------------------------
-// implementation of friends operators
-//---------------------------------
-
-
 
 }

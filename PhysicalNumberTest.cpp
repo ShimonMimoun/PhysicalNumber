@@ -88,7 +88,7 @@ int main() {
     .CHECK_OUTPUT(a, "2[km]")
       .CHECK_OUTPUT(a+b, "2,3[km]")
       .CHECK_OUTPUT(a, "2[km]")
-      .CHECK_OUTPUT(b-a, "1,7[m]")
+      .CHECK_OUTPUT(b-a, "1.7[m]")
       .CHECK_OUTPUT(g, "500[cm]")
       .setname("Incompatible Distance Operator ") 
       .CHECK_THROWS(a-j)
