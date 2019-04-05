@@ -1,7 +1,7 @@
 /**
  * Examples of automatic tests for the exercise on physical numbers.
  *
- * @author Erel Segal-Halevi
+ * @author Shimon Mimoun and Omer Paz
  * @since 2019-02
  */
 
@@ -11,6 +11,7 @@ using std::cout, std::endl, std::istringstream;
 #include "PhysicalNumber.h"
 using ariel::PhysicalNumber, ariel::Unit;
 #include "badkan.hpp"
+
 
 int main() {
   badkan::TestCase testcase;
@@ -23,12 +24,11 @@ int main() {
     PhysicalNumber b(300, Unit::M);
     PhysicalNumber c(2, Unit::HOUR);
     PhysicalNumber d(30, Unit::MIN);
-    PhysicalNumber e(44,Unit::TON);
-    PhysicalNumber f(2, Unit::SEC);
-    PhysicalNumber g(500, Unit::CM);
-    PhysicalNumber h(4, Unit::G);
-    PhysicalNumber j(71,Unit::KG);
 
+    PhysicalNumber length_01 (1 ,Unit::M);
+    PhysicalNumber time_01 (1 ,Unit::MIN);
+    PhysicalNumber masse_01 (1 ,Unit::KG);
+    
 
     testcase
     .setname("Basic output")
@@ -58,53 +58,27 @@ int main() {
     // YOUR TESTS - INSERT AS MANY AS YOU WANT
 
 
-
-      .setname("Time Test")
-      .CHECK_OUTPUT(f, "2[sec]")
-      .CHECK_OUTPUT(d, "30[min]")
-      .CHECK_OUTPUT(d+f, "30.02[min]")
-      .CHECK_OUTPUT(c+d, "2,5005[hour]")
-      .CHECK_OUTPUT(c+c, "5.001[hour]")
-      .CHECK_OUTPUT(d+d, "60.06[min]")
-      .CHECK_OUTPUT(c-d, "4[hour]")
-      .CHECK_OUTPUT(f-f, "0[sec]")
-      .setname("Incompatible dimensions Operator ") 
-      .CHECK_THROWS(j+f)
-      .CHECK_THROWS(c+e)
-      .CHECK_THROWS(g+f)
-     .setname("Mass Test")
-      .CHECK_OUTPUT(j+j, "142[kg]")
-      .CHECK_OUTPUT(j-j, "0[kg]")
-      .CHECK_OUTPUT(j, "71[kg]")
-      .CHECK_OUTPUT(j+h, "71,4[kg]")
-      .CHECK_OUTPUT(j, "71[kg]")
-      .CHECK_OUTPUT(e-j, "44,071[ton]")
-      .setname("Incompatible dimensions Operator ") 
-      .CHECK_THROWS(h+g)
-      .CHECK_THROWS(j-f)
-      .CHECK_THROWS(e+b+f)
-      .setname("Distance Test")
-    .CHECK_OUTPUT(a-a, "0[km]")
-    .CHECK_OUTPUT(a, "2[km]")
-      .CHECK_OUTPUT(a+b, "2,3[km]")
-      .CHECK_OUTPUT(a, "2[km]")
-      .CHECK_OUTPUT(b-a, "1.7[m]")
-      .CHECK_OUTPUT(g, "500[cm]")
-      .setname("Incompatible Distance Operator ") 
-      .CHECK_THROWS(a-j)
-      .CHECK_THROWS(h+g)
-      .CHECK_THROWS(a+b+c)
-      .setname("Other Tests :")
- 
-      .CHECK_OK(istringstream("1000[km]") >> a)
-      .CHECK_OK(istringstream("33[m]") >> b)
-      .CHECK_OK(istringstream("0[ton]") >> c)
-       
-     .CHECK_OUTPUT((a += PhysicalNumber(1, Unit::TON)), "2000[kg]")
-       .CHECK_OUTPUT((b += PhysicalNumber(1, Unit::KM)), "1033[m]")
-       .CHECK_OUTPUT((c += PhysicalNumber(6, Unit::TON)), "6[ton]")
-
-
+      .setname("----------------------------------------------------------")
+      .setname("Test Private")
+      .setname("----------------------------------------------------------")
+      .setname("Verification of Lenght ")
+      .CHECK_OUTPUT(length_01, "1[m]") 
+    .CHECK_OUTPUT((length_01 += PhysicalNumber(1, Unit::M)), "2[m]") // m=m +m
+    .CHECK_OUTPUT((length_01 += PhysicalNumber(5, Unit::CM)), "2.05[m]") //m=m + cm
+    .CHECK_OUTPUT((length_01 += PhysicalNumber(10, Unit::KM)), "10002[m]") //m= m +km
+    .CHECK_OUTPUT((length_01 -= PhysicalNumber(10, Unit::KM)), "2.05[m]") // m=m - km 
+    .CHECK_OUTPUT((length_01 -= PhysicalNumber(5, Unit::CM)), "2[m]") // m=m-cm 
+    .CHECK_OUTPUT((length_01 -= PhysicalNumber(1, Unit::M)), "1[m]") // m=m-m 
+    .CHECK_OUTPUT((length_01 = PhysicalNumber(2, Unit::M)), "2[m]") //  m=  m other 
+    .CHECK_OUTPUT((length_01 = PhysicalNumber(5, Unit::KM)), "5000[m]") //  m=  m other 
+    .CHECK_OUTPUT(-length_01 , "-5000[m]") // -lenght
+    .CHECK_OUTPUT(+length_01, "5000[m]") // +lenght (no change )
+    .CHECK_EQUAL((length_01==PhysicalNumber(5, Unit::KM)),true) // 5000[m]==5km
+    .CHECK_EQUAL((length_01==PhysicalNumber(5, Unit::M)),false) // 5000[m]==5m 
+    .CHECK_EQUAL((length_01<PhysicalNumber(50, Unit::KM)),true) //5000[m]<50 km 
+    .CHECK_EQUAL((length_01<PhysicalNumber(5, Unit::CM)),false) //5000[m]< 5 Cm
+    .CHECK_EQUAL((length_01>PhysicalNumber(11, Unit::KM)),false) // 5000[m]> 11 KM 
+    .CHECK_EQUAL((length_01>PhysicalNumber(2, Unit::CM)),true) // 5000[m]>2  cm
 
 
       .print(cout, /*show_grade=*/false);
@@ -116,3 +90,5 @@ int main() {
     cout <<  "*** Grade: " << grade << " ***" << endl;
     return grade;
 }
+
+

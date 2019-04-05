@@ -1,3 +1,7 @@
+/*
+*  @author Omer Paz and Shimon Mimoun 
+*
+*/
 #include "PhysicalNumber.h"
 #include "Unit.h"
 #include <iostream>

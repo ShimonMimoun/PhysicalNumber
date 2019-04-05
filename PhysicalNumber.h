@@ -1,3 +1,8 @@
+/*
+*  @author Omer Paz and Shimon Mimoun 
+*
+*/
+
 #pragma once
 
 #include <iostream>
