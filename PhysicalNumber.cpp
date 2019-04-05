@@ -149,34 +149,34 @@ const bool PhysicalNumber::operator<(const PhysicalNumber& phy) {
      if(!checkType(*this,phy)){
          throw std::invalid_argument("you cant using operation '<' with differnt types.");
      }else
-    return value_number < convertor(phy)*phy.value_number;
+    return (value_number < convertor(phy)*phy.value_number);
 
 }
 const bool PhysicalNumber::operator>(const PhysicalNumber& phy) {
          if(!checkType(*this,phy)){
          throw std::invalid_argument("you cant using operation '>' with differnt types.");
      }else
-    return value_number > convertor(phy)*phy.value_number;
+    return (value_number > convertor(phy)*phy.value_number);
 }
 const bool PhysicalNumber::operator<=(const PhysicalNumber& phy) {
          if(!checkType(*this,phy)){
          throw std::invalid_argument("you cant using operation '<=' with differnt types.");
      }else
-    return value_number <= convertor(phy)*phy.value_number;
+    return (value_number <= convertor(phy)*phy.value_number);
 
 }
 const bool PhysicalNumber::operator>=(const PhysicalNumber& phy) {
          if(!checkType(*this,phy)){
          throw std::invalid_argument("you cant using operation '>=' with differnt types.");
      }else
-    return value_number >= convertor(phy)*phy.value_number;
+    return (value_number >= convertor(phy)*phy.value_number);
     
 }
 const bool PhysicalNumber::operator==(const PhysicalNumber& phy){
              if(!checkType(*this,phy)){
          throw std::invalid_argument("you cant using operation '==' with differnt types.");
      }else
-    return value_number == convertor(phy)*phy.value_number;
+    return (value_number == convertor(phy)*phy.value_number);
 
 }
 const bool PhysicalNumber::operator!=(const PhysicalNumber& phy){
