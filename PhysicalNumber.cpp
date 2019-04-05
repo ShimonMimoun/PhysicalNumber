@@ -43,13 +43,13 @@ double PhysicalNumber::convertor (const PhysicalNumber& phy) const{
                 break;
             case HOUR:
                 if(phy.unit_type==HOUR) return 1;
-                else if (phy.unit_type==MIN) return 0.0166666667;
-                else return 0.0002777778;
+                else if (phy.unit_type==MIN) return 0.01;
+                else return 0.0001;
                 break;
             case MIN:
                 if(phy.unit_type==HOUR) return 60;
                 else if (phy.unit_type==MIN) return 1;
-                else return 0.0166666667;
+                else return 0.01;
                 break;
             case SEC:
                 if(phy.unit_type==HOUR) return 60*60;
@@ -84,55 +84,113 @@ double PhysicalNumber::convertor (const PhysicalNumber& phy) const{
 //---------------------------------
 
 
-const PhysicalNumber PhysicalNumber::operator+(const PhysicalNumber& phyNum) const{
-        if(!checkType(*this,phyNum)){
+const PhysicalNumber PhysicalNumber::operator+(const PhysicalNumber& phy) const{
+        if(!checkType(*this,phy)){
         throw std::invalid_argument("you cant using operation '+' with differnt types.");
         }else{
-            double ans = PhysicalNumber::convertor(phyNum);
-            return PhysicalNumber(value_number+(ans*phyNum.value_number),unit_type);
+            double ans = convertor(phy);
+            return PhysicalNumber(value_number+(ans*phy.value_number),unit_type);
         }
 }
 
-const PhysicalNumber PhysicalNumber::operator-(const PhysicalNumber& phyNum) const{
-        return PhysicalNumber(0,unit_type);
+const PhysicalNumber PhysicalNumber::operator-(const PhysicalNumber& phy) const{
+        if(!checkType(*this,phy)){
+        throw std::invalid_argument("you cant using operation '-' with differnt types.");
+        }else{
+            double ans = convertor(phy);
+            return PhysicalNumber(value_number-(ans*phy.value_number),unit_type);
+        }
 
 }
 
-PhysicalNumber& PhysicalNumber::operator+=(const PhysicalNumber& phyNum){
+PhysicalNumber& PhysicalNumber::operator+=(const PhysicalNumber& phy){
+            if(!checkType(*this,phy)){
+        throw std::invalid_argument("you cant using operation '+=' with differnt types.");
+        }
+        value_number = value_number+convertor(phy)*phy.value_number;
         return *this;
 }
-PhysicalNumber& PhysicalNumber::operator-=(const PhysicalNumber& phyNum){
+PhysicalNumber& PhysicalNumber::operator-=(const PhysicalNumber& phy){
+            if(!checkType(*this,phy)){
+        throw std::invalid_argument("you cant using operation '-=' with differnt types.");
+        }
+        value_number = value_number-convertor(phy)*phy.value_number;
         return *this;
 }
-PhysicalNumber& PhysicalNumber::operator=(const PhysicalNumber& phyNum){
+PhysicalNumber& PhysicalNumber::operator=(const PhysicalNumber& phy){
+        if(!checkType(*this,phy)){
+        throw std::invalid_argument("you cant using operation '=' with differnt types.");
+        }
+        value_number = convertor(phy)*phy.value_number;
         return *this;
 }
 
 const PhysicalNumber PhysicalNumber::operator+() const {
-        return PhysicalNumber(0,unit_type);
+        return PhysicalNumber(value_number,unit_type);
 }
 const PhysicalNumber PhysicalNumber::operator-() const {
-        return PhysicalNumber(0,unit_type);
+        return PhysicalNumber(-value_number,unit_type);
 
 }
 
 //---------------------------------
-//<, >, <=, >=, Operations 
+//<, >, <=, >=, == Operations 
 //---------------------------------
 
-const bool operator<(const PhysicalNumber phy1 , const PhysicalNumber phy2) {return false;};
-const bool operator>(const PhysicalNumber phy1 , const PhysicalNumber phy2) {return false;};
-const bool operator<=(const PhysicalNumber phy1 , const PhysicalNumber phy2) {return false;};
-const bool operator>=(const PhysicalNumber phy1 , const PhysicalNumber phy2) {return false;};
+const bool PhysicalNumber::operator<(const PhysicalNumber& phy) {
+     if(!checkType(*this,phy)){
+         throw std::invalid_argument("you cant using operation '<' with differnt types.");
+     }else
+    return value_number < convertor(phy)*phy.value_number;
+
+}
+const bool PhysicalNumber::operator>(const PhysicalNumber& phy) {
+         if(!checkType(*this,phy)){
+         throw std::invalid_argument("you cant using operation '>' with differnt types.");
+     }else
+    return value_number > convertor(phy)*phy.value_number;
+}
+const bool PhysicalNumber::operator<=(const PhysicalNumber& phy) {
+         if(!checkType(*this,phy)){
+         throw std::invalid_argument("you cant using operation '<=' with differnt types.");
+     }else
+    return value_number <= convertor(phy)*phy.value_number;
+
+}
+const bool PhysicalNumber::operator>=(const PhysicalNumber& phy) {
+         if(!checkType(*this,phy)){
+         throw std::invalid_argument("you cant using operation '>=' with differnt types.");
+     }else
+    return value_number >= convertor(phy)*phy.value_number;
+    
+}
+const bool PhysicalNumber::operator==(const PhysicalNumber& phy){
+             if(!checkType(*this,phy)){
+         throw std::invalid_argument("you cant using operation '==' with differnt types.");
+     }else
+    return value_number == convertor(phy)*phy.value_number;
+
+}
+
 
 //---------------------------------
-//-- , ++ Operations 
+//-- , ++  prefix and postfix Operations 
 //---------------------------------
 
 PhysicalNumber& PhysicalNumber::operator++(){
+    value_number++;
     return *this;
 }
 PhysicalNumber& PhysicalNumber::operator--(){
+    value_number--;
+    return *this;
+}
+PhysicalNumber& PhysicalNumber::operator++ (int){
+    ++(*this);
+    return *this;
+}
+PhysicalNumber& PhysicalNumber::operator-- (int){
+      --(*this);
     return *this;
 }
 

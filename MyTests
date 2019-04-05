@@ -62,7 +62,7 @@ int main() {
       .setname("Time Test")
       .CHECK_OUTPUT(f, "2[sec]")
       .CHECK_OUTPUT(d, "30[min]")
-      .CHECK_OUTPUT(d+f, "30.02[min]")
+      .CHECK_OUTPUT(d+f, "30.03[min]")
       .CHECK_OUTPUT(c+d, "2,5005[hour]")
       .CHECK_OUTPUT(c+c, "5.001[hour]")
       .CHECK_OUTPUT(d+d, "60.06[min]")

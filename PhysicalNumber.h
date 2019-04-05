@@ -61,20 +61,24 @@ const PhysicalNumber operator-() const ;
 // < , > <= , >=  friends globals opreations
 //---------------------------------
 
-friend const bool operator==(const PhysicalNumber phy1 , const PhysicalNumber phy2) {return phy1.unit_type == phy2.unit_type;};
-friend const bool operator<(const PhysicalNumber phy1 , const PhysicalNumber phy2) {return phy1 < phy2;};
-friend const bool operator>(const PhysicalNumber phy1 , const PhysicalNumber phy2) {return phy1 > phy2;};
-friend const bool operator<=(const PhysicalNumber phy1 , const PhysicalNumber phy2) {return phy1 <= phy2;};
-friend const bool operator>=(const PhysicalNumber phy1 , const PhysicalNumber phy2) {return phy1 >= phy2;};
-friend const bool operator!=(const PhysicalNumber phy1 , const PhysicalNumber phy2) {return !(phy1.unit_type==phy2.unit_type);};
+const bool operator==(const PhysicalNumber& phy);
+const bool operator<(const PhysicalNumber& phy);
+const bool operator>(const PhysicalNumber& phy);
+const bool operator<=(const PhysicalNumber& phy);
+const bool operator>=(const PhysicalNumber& phy);
+const bool operator!=(const PhysicalNumber& phy);
 
 //---------------------------------
-// increment & decrement operations
+// increment & decrement prefix and postfix operations
 //---------------------------------
 
 
 PhysicalNumber& operator++();
 PhysicalNumber& operator--();
+PhysicalNumber& operator++ (int);
+PhysicalNumber& operator-- (int);
+
+
 
 //---------------------------------
 // I/O friends operations
