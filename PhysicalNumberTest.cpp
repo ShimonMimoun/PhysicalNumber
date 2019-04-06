@@ -28,7 +28,7 @@ int main() {
     PhysicalNumber length_01 (1 ,Unit::M);
     PhysicalNumber time_01 (1 ,Unit::MIN);
     PhysicalNumber masse_01 (1 ,Unit::KG);
-    
+    bool throwchecks;
 
     testcase
     .setname("Basic output")
@@ -191,12 +191,102 @@ int main() {
     .CHECK_OUTPUT(PhysicalNumber(50, Unit::HOUR)++, "51[hour]") //  chack postfix ++
     .CHECK_OUTPUT(PhysicalNumber(50, Unit::SEC)-- ,"49[sec]") // lenght chack postfix --
 
+
+
+   .setname("----------------------------------------------------------")
+
+  .setname("check conversions")       
+    .CHECK_EQUAL(PhysicalNumber(1, Unit::KG)==PhysicalNumber(1000, Unit::G),true)
+  .CHECK_EQUAL(PhysicalNumber(1, Unit::TON)==PhysicalNumber(1000, Unit::KG),true)
+  .CHECK_EQUAL(PhysicalNumber(1, Unit::TON)==PhysicalNumber(1000000, Unit::G),true)
+  .CHECK_EQUAL(PhysicalNumber(1000, Unit::KG)==PhysicalNumber(1000000, Unit::G),true)
+  .CHECK_EQUAL(PhysicalNumber(1, Unit::HOUR)==PhysicalNumber(60, Unit::MIN),true)  
+  .CHECK_EQUAL(PhysicalNumber(3600, Unit::SEC)==PhysicalNumber(60, Unit::MIN),true)
+  .CHECK_EQUAL(PhysicalNumber(1, Unit::HOUR)==PhysicalNumber(3600, Unit::SEC),true)
+  .CHECK_EQUAL(PhysicalNumber(1, Unit::KM)==PhysicalNumber(1000, Unit::M),true)
+  .CHECK_EQUAL(PhysicalNumber(1, Unit::KM)==PhysicalNumber(100000, Unit::CM),true)
+  .CHECK_EQUAL(PhysicalNumber(1000, Unit::M)==PhysicalNumber(100000, Unit::CM),true)
+  .CHECK_EQUAL(PhysicalNumber(1, Unit::MIN)==PhysicalNumber(60, Unit::SEC),true)
+  .CHECK_EQUAL(PhysicalNumber(1, Unit::M)==PhysicalNumber(100, Unit::CM),true)
+
+
+
+
+
    .setname("----------------------------------------------------------")
       .setname("Verification of TROW  ")
 
+  .setname("Check Input")
 
 
-      
+  .CHECK_OK(istringstream("2[min]") >>a)
+  .CHECK_OUTPUT((a += PhysicalNumber(30, Unit::SEC)), "2.5[min]")
+  .CHECK_OK(istringstream("2[min]") >>b)
+  .CHECK_OUTPUT((b += PhysicalNumber(30, Unit::SEC)), "2.5[min]")
+.CHECK_OK(istringstream("30[kg]") >> c)
+  .CHECK_OUTPUT((c+= PhysicalNumber(50, Unit::G)), "30.05[kg]")
+ .CHECK_OK(istringstream("5[m]") >> length_01)
+  .CHECK_OUTPUT((length_01 += PhysicalNumber(90, Unit::CM)), "5.9[m]")
+  
+  .CHECK_THROWS(istringstream("5[KM]") >> length_01)
+  .CHECK_THROWS(istringstream("5") >> length_01)
+  .CHECK_THROWS(istringstream("5 KM") >> length_01)
+  .CHECK_THROWS(istringstream("2 cm ") >> length_01)
+  .CHECK_THROWS(istringstream("afas") >> length_01)
+  .CHECK_THROWS(istringstream("ton") >> length_01)
+   .CHECK_THROWS(istringstream(" ") >> length_01)
+  .CHECK_THROWS(istringstream("50 [k") >> length_01)
+  .CHECK_THROWS(istringstream("2 ton] ") >> length_01)
+  .CHECK_THROWS(istringstream("3[TON]") >> length_01)
+
+
+        .setname("Check Throw ")
+
+
+  .CHECK_THROWS(length_01+masse_01)
+   .CHECK_THROWS(length_01-masse_01)
+    .CHECK_THROWS(length_01+=masse_01)
+      .CHECK_THROWS(length_01-=masse_01)
+      .CHECK_THROWS(length_01=+masse_01)
+      .CHECK_THROWS(length_01=-masse_01)
+        .CHECK_THROWS(length_01=masse_01)
+    .CHECK_THROWS(throwchecks= length_01==masse_01)
+    .CHECK_THROWS(throwchecks= length_01<masse_01)
+    .CHECK_THROWS(throwchecks= length_01>masse_01)
+    .CHECK_THROWS(throwchecks= length_01<=masse_01)
+   .CHECK_THROWS(throwchecks= length_01>=masse_01)
+    .CHECK_THROWS(throwchecks= length_01!=masse_01)
+
+
+    .CHECK_THROWS(time_01+masse_01)
+   .CHECK_THROWS(time_01-masse_01)
+    .CHECK_THROWS(time_01+=masse_01)
+      .CHECK_THROWS(time_01-=masse_01)
+        .CHECK_THROWS(time_01=+masse_01)
+      .CHECK_THROWS(time_01=-masse_01)
+    .CHECK_THROWS(time_01=masse_01)
+        .CHECK_THROWS(throwchecks=time_01==masse_01)
+    .CHECK_THROWS(throwchecks= time_01<masse_01)
+    .CHECK_THROWS(throwchecks= time_01>masse_01)
+    .CHECK_THROWS(throwchecks= time_01<=masse_01)
+   .CHECK_THROWS(throwchecks= time_01>=masse_01)
+    .CHECK_THROWS(throwchecks= time_01!=masse_01)
+
+
+  .CHECK_THROWS(length_01+time_01)
+  .CHECK_THROWS(length_01-time_01)
+  .CHECK_THROWS(length_01+=time_01)
+  .CHECK_THROWS(length_01-=time_01)
+  .CHECK_THROWS(length_01=+time_01)
+  .CHECK_THROWS(length_01=-time_01)
+  .CHECK_THROWS(length_01=time_01)
+  .CHECK_THROWS(throwchecks=time_01==length_01)
+  .CHECK_THROWS(throwchecks= time_01<length_01)
+  .CHECK_THROWS(throwchecks= time_01>length_01)
+  .CHECK_THROWS(throwchecks= time_01<=length_01)
+  .CHECK_THROWS(throwchecks= time_01>=length_01)
+  .CHECK_THROWS(throwchecks= time_01!=length_01)
+
 
       .print(cout, /*show_grade=*/false);
       grade = testcase.grade();
