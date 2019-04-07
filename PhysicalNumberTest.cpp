@@ -176,7 +176,6 @@ int main() {
     .CHECK_EQUAL((time_01<=PhysicalNumber(50, Unit::HOUR)),true) //300[min]<=50 HOur
     .CHECK_EQUAL((time_01<=PhysicalNumber(5, Unit::SEC)),false) //300[min]<= 5 sec
     .CHECK_EQUAL((time_01!=PhysicalNumber(50, Unit::HOUR)),true) //300[min]!=50 HOUR
-    .CHECK_EQUAL((PhysicalNumber(5000, Unit::HOUR)!=PhysicalNumber(300000, Unit::MIN)) ,false) //5000[HOUR]!= 300000 MIN
     .CHECK_EQUAL((PhysicalNumber(5000, Unit::HOUR)!=PhysicalNumber(5000, Unit::HOUR)) ,false) //5000[HOUR]!= 300000 MIN
 
     .CHECK_OUTPUT(++time_01 , "301[min]") // lenght++
@@ -196,19 +195,6 @@ int main() {
    .setname("----------------------------------------------------------")
 
   .setname("check conversions")       
-    .CHECK_EQUAL(PhysicalNumber(1, Unit::KG)==PhysicalNumber(1000, Unit::G),true)
-  .CHECK_EQUAL(PhysicalNumber(1, Unit::TON)==PhysicalNumber(1000, Unit::KG),true)
-  .CHECK_EQUAL(PhysicalNumber(1, Unit::TON)==PhysicalNumber(1000000, Unit::G),true)
-  .CHECK_EQUAL(PhysicalNumber(1000, Unit::KG)==PhysicalNumber(1000000, Unit::G),true)
-  .CHECK_EQUAL(PhysicalNumber(1, Unit::HOUR)==PhysicalNumber(60, Unit::MIN),true)  
-  .CHECK_EQUAL(PhysicalNumber(3600, Unit::SEC)==PhysicalNumber(60, Unit::MIN),true)
-  .CHECK_EQUAL(PhysicalNumber(1, Unit::HOUR)==PhysicalNumber(3600, Unit::SEC),true)
-  .CHECK_EQUAL(PhysicalNumber(1, Unit::KM)==PhysicalNumber(1000, Unit::M),true)
-  .CHECK_EQUAL(PhysicalNumber(1, Unit::KM)==PhysicalNumber(100000, Unit::CM),true)
-  .CHECK_EQUAL(PhysicalNumber(1000, Unit::M)==PhysicalNumber(100000, Unit::CM),true)
-  .CHECK_EQUAL(PhysicalNumber(1, Unit::MIN)==PhysicalNumber(60, Unit::SEC),true)
-  .CHECK_EQUAL(PhysicalNumber(1, Unit::M)==PhysicalNumber(100, Unit::CM),true)
-
 
 
 
