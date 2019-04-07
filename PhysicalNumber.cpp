@@ -49,13 +49,13 @@ double PhysicalNumber::convertor (const PhysicalNumber& phy) const{
                 break;
             case HOUR:
                 if(phy.unit_type==HOUR) return 1;
-                else if (phy.unit_type==MIN) return 0.0166666667;
-                else return 0.0002777778;
+                else if (phy.unit_type==MIN) return 0.016666666666666667;
+                else return 0.00027777777777777777;
                 break;
             case MIN:
                 if(phy.unit_type==HOUR) return 60;
                 else if (phy.unit_type==MIN) return 1;
-                else return 0.0166666667;
+                else return 0.016666666666666667;
                 break;
             case SEC:
                 if(phy.unit_type==HOUR) return 60*60;
@@ -64,8 +64,8 @@ double PhysicalNumber::convertor (const PhysicalNumber& phy) const{
                 break;
             case TON:
                 if(phy.unit_type==TON) return 1;
-                else if (phy.unit_type==KG) return 0.00110231131;
-                else return 0.0001;
+                else if (phy.unit_type==KG) return 0.001;
+                else return 0.000001;
                 break;
             case KG:
                 if(phy.unit_type==TON) return 1000;
