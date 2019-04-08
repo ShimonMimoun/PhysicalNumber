@@ -22,7 +22,7 @@ PhysicalNumber::~PhysicalNumber(){}
 //---------------------------------
 
 
-bool PhysicalNumber::checkType (const PhysicalNumber& phy1,const PhysicalNumber& phy2) const{
+bool ariel::checkType (const PhysicalNumber& phy1,const PhysicalNumber& phy2) {
 
     if((phy1.unit_type >= 0 && phy1.unit_type <=2) && (phy2.unit_type >=0 && phy2.unit_type <=2)) {return true;}
     else if ((phy1.unit_type >= 3 && phy1.unit_type <=5) && (phy2.unit_type >=3 && phy2.unit_type <=5)) {return true;}
@@ -30,7 +30,7 @@ bool PhysicalNumber::checkType (const PhysicalNumber& phy1,const PhysicalNumber&
     else {return false;}
 }
 
-double PhysicalNumber::convertor (const PhysicalNumber& phy) const{
+double ariel::convertor (Unit unit_type,const PhysicalNumber& phy) {
         switch (unit_type) {
             case KM:
                 if(phy.unit_type==KM) return 1;
@@ -94,7 +94,7 @@ const PhysicalNumber PhysicalNumber::operator+(const PhysicalNumber& phy) const{
         if(!checkType(*this,phy)){
         throw std::invalid_argument("you cant using operation '+' with differnt types.");
         }else{
-            double ans = convertor(phy);
+            double ans = ariel::convertor(unit_type,phy);
             return PhysicalNumber(value_number+(ans*phy.value_number),unit_type);
         }
 }
@@ -103,7 +103,7 @@ const PhysicalNumber PhysicalNumber::operator-(const PhysicalNumber& phy) const{
         if(!checkType(*this,phy)){
         throw std::invalid_argument("you cant using operation '-' with differnt types.");
         }else{
-            double ans = convertor(phy);
+            double ans = ariel::convertor(unit_type,phy);
             return PhysicalNumber(value_number-(ans*phy.value_number),unit_type);
         }
 
@@ -113,21 +113,21 @@ PhysicalNumber& PhysicalNumber::operator+=(const PhysicalNumber& phy){
             if(!checkType(*this,phy)){
         throw std::invalid_argument("you cant using operation '+=' with differnt types.");
         }
-        value_number = value_number+convertor(phy)*phy.value_number;
+        value_number = value_number+convertor(unit_type,phy)*phy.value_number;
         return *this;
 }
 PhysicalNumber& PhysicalNumber::operator-=(const PhysicalNumber& phy){
             if(!checkType(*this,phy)){
         throw std::invalid_argument("you cant using operation '-=' with differnt types.");
         }
-        value_number = value_number-convertor(phy)*phy.value_number;
+        value_number = value_number-convertor(unit_type,phy)*phy.value_number;
         return *this;
 }
 PhysicalNumber& PhysicalNumber::operator=(const PhysicalNumber& phy){
         if(!checkType(*this,phy)){
         throw std::invalid_argument("you cant using operation '=' with differnt types.");
         }
-        value_number = convertor(phy)*phy.value_number;
+        value_number = convertor(unit_type,phy)*phy.value_number;
         return *this;
 }
 
@@ -145,45 +145,55 @@ const PhysicalNumber PhysicalNumber::operator-() const {
 //<, >, <=, >=, == , != Operations 
 //---------------------------------
 
-const bool PhysicalNumber::operator<(const PhysicalNumber& phy) {
-     if(!checkType(*this,phy)){
+bool ariel::operator<(const PhysicalNumber &phy,const PhysicalNumber& phy1) {
+     if(!checkType(phy,phy1)){
          throw std::invalid_argument("you cant using operation '<' with differnt types.");
-     }else
-    return (value_number < convertor(phy)*phy.value_number);
+     }else{
+     double ans = ariel::convertor(phy.unit_type,phy1)*phy1.value_number;
+    return phy.value_number < ans;
+     }
 
 }
-const bool PhysicalNumber::operator>(const PhysicalNumber& phy) {
-         if(!checkType(*this,phy)){
+bool ariel::operator>(const PhysicalNumber &phy,const PhysicalNumber& phy1) {
+         if(!checkType(phy,phy1)){
          throw std::invalid_argument("you cant using operation '>' with differnt types.");
-     }else
-    return (value_number > convertor(phy)*phy.value_number);
+     }else{
+          double ans = ariel::convertor(phy.unit_type,phy1)*phy1.value_number;
+    return phy.value_number > ans;
+     }
 }
-const bool PhysicalNumber::operator<=(const PhysicalNumber& phy) {
-         if(!checkType(*this,phy)){
+bool ariel::operator<=(const PhysicalNumber &phy,const PhysicalNumber& phy1) {
+         if(!checkType(phy,phy1)){
          throw std::invalid_argument("you cant using operation '<=' with differnt types.");
-     }else
-    return (value_number <= convertor(phy)*phy.value_number);
-
+     }else{
+     double ans = ariel::convertor(phy.unit_type,phy1)*phy1.value_number;
+    return phy.value_number <= ans;
+     }
 }
-const bool PhysicalNumber::operator>=(const PhysicalNumber& phy) {
-         if(!checkType(*this,phy)){
+bool ariel::operator>=(const PhysicalNumber& phy,const PhysicalNumber& phy1) {
+         if(!checkType(phy,phy1)){
          throw std::invalid_argument("you cant using operation '>=' with differnt types.");
-     }else
-    return (value_number >= convertor(phy)*phy.value_number);
-    
+     }else{
+    double ans = ariel::convertor(phy.unit_type,phy1)*phy1.value_number;
+    return phy.value_number >= ans;
+     }
 }
-const bool PhysicalNumber::operator==(const PhysicalNumber& phy){
-             if(!checkType(*this,phy)){
+bool ariel::operator==(const PhysicalNumber& phy,const PhysicalNumber& phy1){
+             if(!checkType(phy,phy1)){
          throw std::invalid_argument("you cant using operation '==' with differnt types.");
-     }else
-    return (value_number == convertor(phy)*phy.value_number);
+     }else{
+    double ans = ariel::convertor(phy.unit_type,phy1)*phy1.value_number;
+    return phy.value_number == ans;
+     }
 
 }
-const bool PhysicalNumber::operator!=(const PhysicalNumber& phy){
-             if(!checkType(*this,phy)){
+bool ariel::operator!=(const PhysicalNumber& phy,const PhysicalNumber& phy1){
+             if(!checkType(phy,phy1)){
          throw std::invalid_argument("you cant using operation '!=' with differnt types.");
-     }else
-    return (value_number != convertor(phy)*phy.value_number);
+     }else{
+   long double ans = ariel::convertor(phy.unit_type,phy1)*phy1.value_number; 
+    return phy.value_number != ans;
+     }
 }
 
 

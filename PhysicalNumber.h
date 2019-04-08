@@ -20,20 +20,22 @@ Unit unit_type;
 //Helping Functions
 //---------------------------------
 
-bool checkType (const PhysicalNumber& phy1 ,const PhysicalNumber& phy2) const;
-double convertor (const PhysicalNumber& phy) const;
+friend bool checkType (const PhysicalNumber& phy1 ,const PhysicalNumber& phy2);
+friend double convertor (Unit unit_type,const PhysicalNumber& phy);
 
 
 public:
 //---------------------------------
 //constractors
 //---------------------------------
+Unit getUserType() {
+    return unit_type;
+}
 
 
 PhysicalNumber(double,Unit);
 ~PhysicalNumber();
 PhysicalNumber() = default;
-
 
 //---------------------------------
 // +,- +=  Math opreation , ect..
@@ -59,12 +61,12 @@ const PhysicalNumber operator-() const ;
 // < , > <= , >=  friends globals opreations
 //---------------------------------
 
-const bool operator==(const PhysicalNumber& phy);
-const bool operator<(const PhysicalNumber& phy);
-const bool operator>(const PhysicalNumber& phy);
-const bool operator<=(const PhysicalNumber& phy);
-const bool operator>=(const PhysicalNumber& phy);
-const bool operator!=(const PhysicalNumber& phy);
+friend bool operator==(const PhysicalNumber& phy,const PhysicalNumber& phy1);
+friend bool operator<(const PhysicalNumber& phy,const PhysicalNumber& phy1);
+friend bool operator>(const PhysicalNumber& phy,const PhysicalNumber& phy1);
+friend bool operator<=(const PhysicalNumber& phy,const PhysicalNumber& phy1);
+friend bool operator>=(const PhysicalNumber& phy,const PhysicalNumber& phy1);
+friend bool operator!=(const PhysicalNumber& phy,const PhysicalNumber& phy1);
 
 //---------------------------------
 // increment & decrement prefix and postfix operations
@@ -87,6 +89,14 @@ friend istream& operator>>(istream& is, PhysicalNumber& c);
 
 
 };
+bool operator==(const PhysicalNumber& phy,const PhysicalNumber& phy1);
+bool operator<(const PhysicalNumber& phy,const PhysicalNumber& phy1);
+bool operator>(const PhysicalNumber& phy,const PhysicalNumber& phy1);
+bool operator<=(const PhysicalNumber& phy,const PhysicalNumber& phy1);
+bool operator>=(const PhysicalNumber& phy,const PhysicalNumber& phy1);
+bool operator!=(const PhysicalNumber& phy,const PhysicalNumber& phy1);
+bool checkType (const PhysicalNumber& phy1 ,const PhysicalNumber& phy2);
+double convertor (Unit unit_type,const PhysicalNumber& phy);
 
 ostream& operator<<(ostream& os, const PhysicalNumber& c);
 istream& operator>>(istream& is, PhysicalNumber& c);
