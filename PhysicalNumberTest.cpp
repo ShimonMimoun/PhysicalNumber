@@ -227,65 +227,7 @@ int main() {
   .CHECK_OUTPUT((c+= PhysicalNumber(50, Unit::G)), "30.05[kg]")
  .CHECK_OK(istringstream("5[m]") >> length_01)
   .CHECK_OUTPUT((length_01 += PhysicalNumber(90, Unit::CM)), "5.9[m]")
-  
-  .CHECK_THROWS(istringstream("5[KM]") >> length_01)
-  .CHECK_THROWS(istringstream("5") >> length_01)
-  .CHECK_THROWS(istringstream("5 KM") >> length_01)
-  .CHECK_THROWS(istringstream("2 cm ") >> length_01)
-  .CHECK_THROWS(istringstream("afas") >> length_01)
-  .CHECK_THROWS(istringstream("ton") >> length_01)
-   .CHECK_THROWS(istringstream(" ") >> length_01)
-  .CHECK_THROWS(istringstream("50 [k") >> length_01)
-  .CHECK_THROWS(istringstream("2 ton] ") >> length_01)
-  .CHECK_THROWS(istringstream("3[TON]") >> length_01)
-
-
-        .setname("Check Throw ")
-
-
-  .CHECK_THROWS(length_01+masse_01)
-   .CHECK_THROWS(length_01-masse_01)
-    .CHECK_THROWS(length_01+=masse_01)
-      .CHECK_THROWS(length_01-=masse_01)
-      .CHECK_THROWS(length_01=+masse_01)
-      .CHECK_THROWS(length_01=-masse_01)
-        .CHECK_THROWS(length_01=masse_01)
-    .CHECK_THROWS(throwchecks= length_01==masse_01)
-    .CHECK_THROWS(throwchecks= length_01<masse_01)
-    .CHECK_THROWS(throwchecks= length_01>masse_01)
-    .CHECK_THROWS(throwchecks= length_01<=masse_01)
-   .CHECK_THROWS(throwchecks= length_01>=masse_01)
-    .CHECK_THROWS(throwchecks= length_01!=masse_01)
-
-
-    .CHECK_THROWS(time_01+masse_01)
-   .CHECK_THROWS(time_01-masse_01)
-    .CHECK_THROWS(time_01+=masse_01)
-      .CHECK_THROWS(time_01-=masse_01)
-        .CHECK_THROWS(time_01=+masse_01)
-      .CHECK_THROWS(time_01=-masse_01)
-    .CHECK_THROWS(time_01=masse_01)
-        .CHECK_THROWS(throwchecks=time_01==masse_01)
-    .CHECK_THROWS(throwchecks= time_01<masse_01)
-    .CHECK_THROWS(throwchecks= time_01>masse_01)
-    .CHECK_THROWS(throwchecks= time_01<=masse_01)
-   .CHECK_THROWS(throwchecks= time_01>=masse_01)
-    .CHECK_THROWS(throwchecks= time_01!=masse_01)
-
-
-  .CHECK_THROWS(length_01+time_01)
-  .CHECK_THROWS(length_01-time_01)
-  .CHECK_THROWS(length_01+=time_01)
-  .CHECK_THROWS(length_01-=time_01)
-  .CHECK_THROWS(length_01=+time_01)
-  .CHECK_THROWS(length_01=-time_01)
-  .CHECK_THROWS(length_01=time_01)
-  .CHECK_THROWS(throwchecks=time_01==length_01)
-  .CHECK_THROWS(throwchecks= time_01<length_01)
-  .CHECK_THROWS(throwchecks= time_01>length_01)
-  .CHECK_THROWS(throwchecks= time_01<=length_01)
-  .CHECK_THROWS(throwchecks= time_01>=length_01)
-  .CHECK_THROWS(throwchecks= time_01!=length_01)
+ 
 
 
       .print(cout, /*show_grade=*/false);
