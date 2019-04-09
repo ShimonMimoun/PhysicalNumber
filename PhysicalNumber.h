@@ -12,8 +12,7 @@ namespace ariel{
 
 class PhysicalNumber {
 
-private:
-double value_number;
+long double value_number;
 Unit unit_type;
 
 //---------------------------------
@@ -33,7 +32,7 @@ Unit getUserType() {
 }
 
 
-PhysicalNumber(double,Unit);
+PhysicalNumber(long double,Unit);
 ~PhysicalNumber();
 PhysicalNumber() = default;
 
@@ -75,8 +74,8 @@ friend bool operator!=(const PhysicalNumber& phy,const PhysicalNumber& phy1);
 
 PhysicalNumber& operator++();
 PhysicalNumber& operator--();
-PhysicalNumber& operator++ (int);
-PhysicalNumber& operator-- (int);
+PhysicalNumber operator++ (int);
+PhysicalNumber operator-- (int);
 
 
 
