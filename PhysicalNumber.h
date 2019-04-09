@@ -20,7 +20,6 @@ Unit unit_type;
 //---------------------------------
 
 friend bool checkType (const PhysicalNumber& phy1 ,const PhysicalNumber& phy2);
-friend double convertor (Unit unit_type,const PhysicalNumber& phy);
 
 
 public:
@@ -95,7 +94,6 @@ bool operator<=(const PhysicalNumber& phy,const PhysicalNumber& phy1);
 bool operator>=(const PhysicalNumber& phy,const PhysicalNumber& phy1);
 bool operator!=(const PhysicalNumber& phy,const PhysicalNumber& phy1);
 bool checkType (const PhysicalNumber& phy1 ,const PhysicalNumber& phy2);
-double convertor (Unit unit_type,const PhysicalNumber& phy);
 
 ostream& operator<<(ostream& os, const PhysicalNumber& c);
 istream& operator>>(istream& is, PhysicalNumber& c);
