@@ -4,6 +4,10 @@ all: test
 	./$<
 
 git:
+	rm -f *.o demo test PhysicalNumber PhysicalNumberTest PhysicalNumberDemo
+	git add --all
+	git commit -m "update files"
+	git push
 
 
 demo: PhysicalNumberDemo.o PhysicalNumber.o
