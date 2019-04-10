@@ -13,7 +13,7 @@ int getUnitSize(string str);
 int unitCorrect(string str);
 int value_numberCorrect(string str);
 double getvalue_number(string str);
-
+Unit getUnit(int unit);
 
 PhysicalNumber ariel::PhysicalNumber::operator+(const PhysicalNumber& phyNum) {
     if(!checkType(this->unit_type, phyNum.unit_type)){
@@ -206,9 +206,9 @@ int value_numberCorrect(string str){
     return 1;
 }
 istream& ariel::operator>> (istream& input, PhysicalNumber& other){
-    int amount;
+    int value_number;
     string unit;
-    Unit u;
+    Unit unit_type;
 
     ostringstream os;       
     input >> os.rdbuf();    
@@ -217,7 +217,7 @@ istream& ariel::operator>> (istream& input, PhysicalNumber& other){
 
 
     int unitSize = unitCorrect(str);
-    int amountSize = amountCorrect(str);
+    int amountSize = value_numberCorrect(str);
 
 
     ios::pos_type startPosition = input.tellg();
@@ -230,17 +230,39 @@ istream& ariel::operator>> (istream& input, PhysicalNumber& other){
         input.clear(errorState); 
 
     } else {
-        other.amount = getAmount(str);
-        other.unit = getUnit(unitSize);
+        other.value_number = getvalue_number(str);
+        other.unit_type = getUnit(unitSize);
     }
 
     return input;
 } ;
- if(check == -1){
-    throw std::invalid_argument("Type enter no correct");
- }
-    return is;
-}
+
+
+Unit getUnit(int unit){
+    Unit temp;
+    switch (unit)
+    {
+        case 1: temp = Unit::CM;
+            break;
+        case 2: temp = Unit::M;
+            break;
+        case 3: temp = Unit::KM;
+            break;
+        case 4: temp = Unit::SEC;
+            break;
+        case 5: temp = Unit::MIN;
+            break;
+        case 6: temp = Unit::HOUR;
+            break;
+        case 7: temp = Unit::G;
+            break;
+        case 8: temp = Unit::KG;
+            break;    
+        case 9: temp = Unit::TON;
+            break;
+    }
+    return temp;
+} 
 
 
 bool checkType (Unit unit_a, Unit unit_b){
