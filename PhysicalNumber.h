@@ -11,15 +11,13 @@
 namespace ariel{
 
 class PhysicalNumber {
-
+private:
 long double value_number;
 Unit unit_type;
 
 //---------------------------------
 //Helping Functions
 //---------------------------------
-
-friend bool checkType (const PhysicalNumber& phy1 ,const PhysicalNumber& phy2);
 
 
 public:
@@ -31,29 +29,34 @@ Unit getUserType() {
 }
 
 
-PhysicalNumber(long double,Unit);
-~PhysicalNumber();
-PhysicalNumber() = default;
+PhysicalNumber(long double value_number,Unit unit_type){
+    {
+            this->value_number = value_number;
+            this->unit_type = unit_type;
+        }
+}
+~PhysicalNumber(){}
+
 
 //---------------------------------
 // +,- +=  Math opreation , ect..
 //---------------------------------
 
-const PhysicalNumber operator+(const PhysicalNumber& phyNum) const;
-const PhysicalNumber operator-(const PhysicalNumber& phyNum) const;
+ PhysicalNumber operator+(const PhysicalNumber& phyNum) ;
+ PhysicalNumber operator-(const PhysicalNumber& phyNum) ;
 
 
 PhysicalNumber& operator+=(const PhysicalNumber& phyNum);
 PhysicalNumber& operator-=(const PhysicalNumber& phyNum);
-PhysicalNumber& operator=(const PhysicalNumber& phyNum);
+// PhysicalNumber& operator=(const PhysicalNumber& phyNum);
 
 //---------------------------------
 // onary preations
 //---------------------------------
 
 
-const PhysicalNumber operator+() const ;
-const PhysicalNumber operator-() const ;
+const PhysicalNumber operator+()  ;
+const PhysicalNumber operator-()  ;
 
 //---------------------------------
 // < , > <= , >=  friends globals opreations
@@ -93,7 +96,6 @@ bool operator>(const PhysicalNumber& phy,const PhysicalNumber& phy1);
 bool operator<=(const PhysicalNumber& phy,const PhysicalNumber& phy1);
 bool operator>=(const PhysicalNumber& phy,const PhysicalNumber& phy1);
 bool operator!=(const PhysicalNumber& phy,const PhysicalNumber& phy1);
-bool checkType (const PhysicalNumber& phy1 ,const PhysicalNumber& phy2);
 
 ostream& operator<<(ostream& os, const PhysicalNumber& c);
 istream& operator>>(istream& is, PhysicalNumber& c);
