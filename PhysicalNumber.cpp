@@ -6,7 +6,22 @@ using namespace ariel;
 #include <sstream>
 #include <string.h>
 
-Unit get_Unit(int unit);
+
+
+
+//----------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------
+//                          FONCTION
+//----------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------
+
+
+
+
+
+Unit get_Unit(int unit_number);
 bool checkType (Unit unit_a, Unit unit_b);
 double getdata_number(string str);
 double double_base(double data_number, Unit temp_unit);
@@ -14,6 +29,19 @@ double unit_double(double data_number, Unit unit_temp);
 int size_uni(string str);
 int verif_string_unit(string str);
 int data_numberCorrect(string str);
+
+
+
+
+//----------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------
+//                              CODE IMPLEMENTATION 
+//----------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------
+
+
 
 
 
@@ -32,9 +60,7 @@ PhysicalNumber ariel::PhysicalNumber::operator-(const PhysicalNumber& other) {
       }
     else{
         double temp_num = double_base(this->value_number, this->unit_type);
-        double othervalue_number = double_base(other.value_number, other.unit_type);
-        temp_num -= othervalue_number;
-        return PhysicalNumber(unit_double(temp_num, this->unit_type), this->unit_type);
+        return PhysicalNumber(unit_double((temp_num -= double_base(other.value_number, other.unit_type)), this->unit_type), this->unit_type);
     }
 };
 
@@ -44,9 +70,7 @@ PhysicalNumber& ariel::PhysicalNumber::operator+=(const PhysicalNumber& other) {
     }
     else{
         double temp_num = double_base(this->value_number, this->unit_type);
-        double othervalue_number = double_base(other.value_number, other.unit_type);
-        temp_num += othervalue_number;
-        this->value_number = unit_double(temp_num, this->unit_type);
+        this->value_number = unit_double((temp_num += double_base(other.value_number, other.unit_type)), this->unit_type);
     }
     return *this;
 };
@@ -57,9 +81,7 @@ PhysicalNumber& ariel::PhysicalNumber::operator-=(const PhysicalNumber& other) {
     }
     else{
         double temp_num = double_base(this->value_number, this->unit_type);
-        double othervalue_number = double_base(other.value_number, other.unit_type);
-        temp_num -= othervalue_number;
-        this->value_number = unit_double(temp_num, this->unit_type);;
+        this->value_number = unit_double((temp_num -= double_base(other.value_number, other.unit_type)), this->unit_type);;
     }
     return *this;
 };
@@ -130,39 +152,29 @@ PhysicalNumber& ariel::PhysicalNumber::operator--() {
     return *this;
 };
 PhysicalNumber ariel::PhysicalNumber::operator++(int num) {
-    PhysicalNumber copy = *this;
+    PhysicalNumber phy_copy = *this;
     value_number++;
-    return copy;
+    return phy_copy;
 };
 PhysicalNumber ariel::PhysicalNumber::operator--(int num) {
-    PhysicalNumber copy = *this;
+    PhysicalNumber phy_copy = *this;
     value_number--;
-    return copy;
+    return phy_copy;
 };
 
 
 ostream& ariel::operator<< (ostream& os, const PhysicalNumber& p_temp) {
-    string unit = "";
+    string unit_return = "";
     switch(p_temp.unit_type) {  
-        case Unit::G : unit = "g";
-        break;
-        case Unit::KG : unit = "kg";
-        break;
-        case Unit::TON : unit = "ton";
-        break;           
-        case Unit::CM : unit = "cm";
-        break;
-        case Unit::M : unit = "m";
-        break;
-        case Unit::KM : unit = "km";
-        break;
-        case Unit::SEC : unit = "sec";
-        break;
-        case Unit::MIN : unit = "min";
-        break;
-        case Unit::HOUR : unit = "hour";
-        break;
-       
+        case Unit::G : unit_return = "g";break;
+        case Unit::KG : unit_return = "kg";break;
+        case Unit::TON : unit_return = "ton";break;           
+        case Unit::CM : unit_return = "cm";break;
+        case Unit::M : unit_return = "m";break;
+        case Unit::KM : unit_return = "km";break;
+        case Unit::SEC : unit_return = "sec";break;
+        case Unit::MIN : unit_return = "min";break;
+        case Unit::HOUR : unit_return = "hour";break;
          default :
                 cout<< "no change"<<endl;
     }
@@ -266,20 +278,10 @@ int data_numberCorrect(string str)
     for(int i = 0; i < size; i++)
     {
         if(str_unit.at(i) > '9'||str_unit.at(i) < '0' ){
-            if(str_unit.at(i) == '.')
-            {
-                conter++;
-            }
-            else
-            {
-                return 0;
-            }
-        }
-        if(conter > 1)
-        {
-            return 0;
-        }
+            if(str_unit.at(i) == '.') {  conter++; } else {return 0; } }
+        if(conter > 1)  { return 0; }
     }
+
     return 1;
 }
 
@@ -327,7 +329,6 @@ double unit_double(double value_number, Unit unit_temp){
             case Unit::HOUR: result_unit = value_number / 3600; break;
             case Unit::KG: result_unit = value_number / 1000;  break;
             case Unit::TON: result_unit = value_number / (1000 * 1000);  break;
-          
                 default :
                 cout<< "The value don't change"<<endl;
         }
@@ -337,12 +338,13 @@ double unit_double(double value_number, Unit unit_temp){
 
 
 int size_uni(string str){
-    int unit_size = 1;
+   
     if(str.at(str.length() - 1)  != ']'){
         throw std::out_of_range{"Error Imput"};
         return 0;
     }
-    
+
+    int unit_size = 1;
     while((str.at(str.length() - unit_size - 1) >= 'a' )  &&  
                                                             (str.at(str.length() - unit_size - 1) <= 'z')){
         unit_size++;
@@ -350,11 +352,12 @@ int size_uni(string str){
     
     if(str.at(str.length() - unit_size - 1) != '[')
             return 0;
-    
     return unit_size - 1;
 }
 
-Unit get_Unit(int unit){
+
+
+Unit get_Unit(int unit_number){
     Unit temp;
     switch (unit)
     {
