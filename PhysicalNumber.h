@@ -97,7 +97,6 @@ bool operator!=(const PhysicalNumber& phy,const PhysicalNumber& phy1);
 
 ostream& operator<<(ostream& os, const PhysicalNumber& c);
 istream& operator>>(istream& is, PhysicalNumber& c);
-
 Unit get_Unit(int unit_number);
 bool checkType (Unit unit_a, Unit unit_b);
 double getdata_number(string str);
