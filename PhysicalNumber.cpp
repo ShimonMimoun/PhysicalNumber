@@ -233,15 +233,24 @@ int verif_string_unit(string str){
     else
     {
         string str_unit = str.substr(str.length()-1-size, size);
-          if(!str_unit.compare("g")){ result = (int)Unit::G; }
-        if(!str_unit.compare("kg")){ result = (int)Unit::KG; }
-        if(!str_unit.compare("ton")){ result = (int)Unit::TON; }
-        if(!str_unit.compare("cm")){ result = (int)Unit::CM; }
-        if(!str_unit.compare("m")){ result = (int)Unit::M; }
-        if(!str_unit.compare("km")){ result = (int)Unit::KM; }
-        if(!str_unit.compare("sec")){ result = (int)Unit::SEC; }
-        if(!str_unit.compare("min")){ result = (int)Unit::MIN; }
-        if(!str_unit.compare("hour")){ result = (int)Unit::HOUR; }
+          if(!str_unit.compare("g")) 
+                                        result = (int)Unit::G; 
+        if(!str_unit.compare("kg")) 
+                                         result = (int)Unit::KG; 
+        if(!str_unit.compare("ton"))
+                                         result = (int)Unit::TON; 
+        if(!str_unit.compare("cm")) 
+                                         result = (int)Unit::CM; 
+        if(!str_unit.compare("m")) 
+                                         result = (int)Unit::M; 
+        if(!str_unit.compare("km")) 
+                                         result = (int)Unit::KM; 
+        if(!str_unit.compare("sec"))
+                                         result = (int)Unit::SEC; 
+        if(!str_unit.compare("min")) 
+                                          result = (int)Unit::MIN; 
+        if(!str_unit.compare("hour")) 
+                                         result = (int)Unit::HOUR; 
       
     }
     return result;
