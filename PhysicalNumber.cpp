@@ -9,7 +9,10 @@ using namespace ariel;
 bool checkType (Unit unit_a, Unit unit_b);
 double double_base(double value, Unit temp_unit);
 double unit_double(double value, Unit unit_temp);
-
+int getUnitSize(string str);
+int unitCorrect(string str);
+int value_numberCorrect(string str);
+double getvalue_number(string str);
 
 
 PhysicalNumber ariel::PhysicalNumber::operator+(const PhysicalNumber& phyNum) {
@@ -138,28 +141,103 @@ ostream& ariel::operator<<(ostream& os, const PhysicalNumber& c){
 
 
 
-
-
-
-istream& ariel::operator>>(istream& is, PhysicalNumber& c){
-
-        std::string input,s;
-        is>>input;
-        int check = -1;
-        std::istringstream iss(input);
-        getline( iss, s, '[' );
-         c.value_number = std::stoi(s);
-        getline( iss, s, ']' );
-
-    Unit curr  = Unit::KM;
-    for(size_t i = 0; i < Unit::count; i++) {
-    if(unit_types[i] == s) {
-        c.unit_type = (Unit)i;
-        check = 1;
+int getUnitSize(string str){
+    int unit_size = 1;
+    int size = str.length();
+    
+    if(str.at(size - 1)  != ']'){
+        throw std::out_of_range{"Input not correct!!!"};
+        return 0;
     }
- }
+    
+    while(str.at(size - unit_size - 1) >= 'a' && str.at(size - unit_size - 1) <= 'z'){
+        unit_size++;
+    }
+    
+    if(str.at(size - unit_size - 1) != '['){
+        return 0;
+    }
+
+    return unit_size - 1;
+}
+
+int unitCorrect(string str){
+    int unitSize = getUnitSize(str);//get unit length of input
+    int unit = 0; //type of unit
+
+    if(unitSize == 0 || unitSize > 4){//if unitSize = 0 or more than 4 so input is not correct
+        return 0;
+    }
+    else{
+        string tempUnit = str.substr(str.length() - unitSize - 1, unitSize);
+        if(!tempUnit.compare("cm")){ unit = (int)Unit::CM; }
+        if(!tempUnit.compare("m")){ unit = (int)Unit::M; }
+        if(!tempUnit.compare("km")){ unit = (int)Unit::KM; }
+        if(!tempUnit.compare("sec")){ unit = (int)Unit::SEC; }
+        if(!tempUnit.compare("min")){ unit = (int)Unit::MIN; }
+        if(!tempUnit.compare("hour")){ unit = (int)Unit::HOUR; }
+        if(!tempUnit.compare("g")){ unit = (int)Unit::G; }
+        if(!tempUnit.compare("kg")){ unit = (int)Unit::KG; }
+        if(!tempUnit.compare("ton")){ unit = (int)Unit::TON; }
+    }
+    return unit;//return 0 if tempUnit string not equals to some Unit type
+}
+
+
+
+int value_numberCorrect(string str){
+    int unitSize = getUnitSize(str);//find unit length
+    int size = str.length() - unitSize - 2;//unit length + []
+    string value_number = str.substr(0, size);//cut string from 0 to '['
+    int dotCount = 0;//count of dots
+    for(int i = 0; i < size; i++){
+        if(value_number.at(i) < '0' || value_number.at(i) > '9'){
+            if(value_number.at(i) == '.'){//if char is '.' so dotCount ++
+                dotCount++;
+            }
+            else{//if char is not number or dot so value_number input is wrong
+                return 0;
+            }
+        }
+        if(dotCount > 1){ // more than 1 dot so value_number input is wrong
+            return 0;
+        }
+    }
+    return 1;
+}
+istream& ariel::operator>> (istream& input, PhysicalNumber& other){
+    int amount;
+    string unit;
+    Unit u;
+
+    ostringstream os;       
+    input >> os.rdbuf();    
+    string str = os.str();  
+   
+
+
+    int unitSize = unitCorrect(str);
+    int amountSize = amountCorrect(str);
+
+
+    ios::pos_type startPosition = input.tellg();
+
+    if (!unitSize || !amountSize) { 
+  
+        auto errorState = input.rdstate(); 
+        input.clear(); 
+        input.seekg(startPosition);
+        input.clear(errorState); 
+
+    } else {
+        other.amount = getAmount(str);
+        other.unit = getUnit(unitSize);
+    }
+
+    return input;
+} ;
  if(check == -1){
-    throw std::invalid_argument("you cant use that type");
+    throw std::invalid_argument("Type enter no correct");
  }
     return is;
 }
@@ -220,4 +298,11 @@ double double_base(double value, Unit temp_unit){
         }
         return result;
     }
+}
+double getvalue_number(string str){
+    int unitSize = getUnitSize(str); //find unit length
+    int size = str.length() - unitSize - 2;//unit length + []
+    string value_number = str.substr(0, size);//cut string from 0 to '['
+    double value = stod(value_number);//parsing
+    return value;
 }
