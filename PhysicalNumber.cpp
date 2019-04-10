@@ -7,32 +7,6 @@ using namespace ariel;
 #include <string.h>
 
 
-
-
-//----------------------------------------------------------------------------------
-//----------------------------------------------------------------------------------
-//----------------------------------------------------------------------------------
-//                          FONCTION
-//----------------------------------------------------------------------------------
-//----------------------------------------------------------------------------------
-//----------------------------------------------------------------------------------
-
-
-
-
-
-Unit get_Unit(int unit_number);
-bool checkType (Unit unit_a, Unit unit_b);
-double getdata_number(string str);
-double double_base(double data_number, Unit temp_unit);
-double unit_double(double data_number, Unit unit_temp);
-int size_uni(string str);
-int verif_string_unit(string str);
-int data_numberCorrect(string str);
-
-
-
-
 //----------------------------------------------------------------------------------
 //----------------------------------------------------------------------------------
 //----------------------------------------------------------------------------------
@@ -46,42 +20,42 @@ int data_numberCorrect(string str);
 
 
 PhysicalNumber ariel::PhysicalNumber::operator+(const PhysicalNumber& other) {
-    if(!checkType(this->unit_type, other.unit_type)){
+    if(!ariel::checkType(this->unit_type, other.unit_type)){
 throw std::invalid_argument("you cant using operation '+' with differnt types.");    }
     else{
-        double temp_num = (double_base(this->value_number, this->unit_type))+(double_base(other.value_number, other.unit_type));
-        return PhysicalNumber(unit_double(temp_num, this->unit_type), this->unit_type);
+        double temp_num = (ariel::double_base(this->value_number, this->unit_type))+(ariel::double_base(other.value_number, other.unit_type));
+        return PhysicalNumber(ariel::unit_double(temp_num, this->unit_type), this->unit_type);
     }
 };
 
 PhysicalNumber ariel::PhysicalNumber::operator-(const PhysicalNumber& other) {
-    if(!checkType(this->unit_type, other.unit_type)){
+    if(!ariel::checkType(this->unit_type, other.unit_type)){
   throw std::invalid_argument("you cant using operation '-' with differnt types.");
       }
     else{
-        double temp_num = double_base(this->value_number, this->unit_type);
-        return PhysicalNumber(unit_double((temp_num -= double_base(other.value_number, other.unit_type)), this->unit_type), this->unit_type);
+        double temp_num = ariel::double_base(this->value_number, this->unit_type);
+        return PhysicalNumber(ariel::unit_double((temp_num -= ariel::double_base(other.value_number, other.unit_type)), this->unit_type), this->unit_type);
     }
 };
 
 PhysicalNumber& ariel::PhysicalNumber::operator+=(const PhysicalNumber& other) {
-    if(!checkType(this->unit_type, other.unit_type)){
+    if(!ariel::checkType(this->unit_type, other.unit_type)){
         throw std::invalid_argument("you cant using operation '+=' with differnt types.");
     }
     else{
-        double temp_num = double_base(this->value_number, this->unit_type);
-        this->value_number = unit_double((temp_num += double_base(other.value_number, other.unit_type)), this->unit_type);
+        double temp_num = ariel::double_base(this->value_number, this->unit_type);
+        this->value_number = ariel::unit_double((temp_num += ariel::double_base(other.value_number, other.unit_type)), this->unit_type);
     }
     return *this;
 };
 
 PhysicalNumber& ariel::PhysicalNumber::operator-=(const PhysicalNumber& other) {
-    if(!checkType(this->unit_type, other.unit_type)){
+    if(!ariel::checkType(this->unit_type, other.unit_type)){
         throw std::invalid_argument("you cant using operation '-=' with differnt types.");
     }
     else{
         double temp_num = double_base(this->value_number, this->unit_type);
-        this->value_number = unit_double((temp_num -= double_base(other.value_number, other.unit_type)), this->unit_type);;
+        this->value_number = unit_double((temp_num -= ariel::double_base(other.value_number, other.unit_type)), this->unit_type);;
     }
     return *this;
 };
@@ -99,9 +73,9 @@ const PhysicalNumber ariel::PhysicalNumber::operator-() {
 
 
 bool ariel::operator== (const PhysicalNumber& phy, const PhysicalNumber& phy2){
-    if(!checkType(phy.unit_type, phy2.unit_type)){
+    if(!ariel::checkType(phy.unit_type, phy2.unit_type)){
          throw std::invalid_argument("you cant using operation '==' with differnt types.");
-    }  return (double_base(phy.value_number, phy.unit_type)) == (double_base(phy2.value_number, phy2.unit_type));
+    }  return (ariel::double_base(phy.value_number, phy.unit_type)) == (ariel::double_base(phy2.value_number, phy2.unit_type));
 };
 
 
@@ -113,33 +87,33 @@ bool ariel::operator> (const PhysicalNumber& phy, const PhysicalNumber& phy2){
 
 
 bool ariel::operator< (const PhysicalNumber& phy, const PhysicalNumber& phy2){
-    if(!checkType(phy.unit_type, phy2.unit_type)){
+    if(!ariel::checkType(phy.unit_type, phy2.unit_type)){
         throw std::out_of_range{"Error: Numbers with differents type..."};
-    }return (double_base(phy.value_number, phy.unit_type)) < (double_base(phy2.value_number, phy2.unit_type));
+    }return (ariel::double_base(phy.value_number, phy.unit_type)) < (ariel::double_base(phy2.value_number, phy2.unit_type));
 };
 
 bool ariel::operator>= (const PhysicalNumber& phy, const PhysicalNumber& phy2){
-    if(!checkType(phy.unit_type, phy2.unit_type)){
+    if(!ariel::checkType(phy.unit_type, phy2.unit_type)){
          throw std::invalid_argument("you cant using operation '>=' with differnt types.");
-    } return (double_base(phy.value_number, phy.unit_type)) >= (double_base(phy2.value_number, phy2.unit_type));
+    } return (ariel::double_base(phy.value_number, phy.unit_type)) >= (ariel::double_base(phy2.value_number, phy2.unit_type));
 };
 
 
 bool ariel::operator<= (const PhysicalNumber& phy, const PhysicalNumber& phy2){    
-    if(!checkType(phy.unit_type, phy2.unit_type)){
+    if(!ariel::checkType(phy.unit_type, phy2.unit_type)){
          throw std::invalid_argument("you cant using operation '<=' with differnt types.");
     }
 
-    return (double_base(phy.value_number, phy.unit_type)) <= (double_base(phy2.value_number, phy2.unit_type));
+    return (ariel::double_base(phy.value_number, phy.unit_type)) <= (ariel::double_base(phy2.value_number, phy2.unit_type));
 };
 
 
 
 bool ariel::operator!= (const PhysicalNumber& phy, const PhysicalNumber& phy2){
-    if(!checkType(phy.unit_type, phy2.unit_type)){
+    if(!ariel::checkType(phy.unit_type, phy2.unit_type)){
          throw std::invalid_argument("you cant using operation '!=' with differnt types.");
     }
-    return (double_base(phy.value_number, phy.unit_type)) != (double_base(phy2.value_number, phy2.unit_type));
+    return (ariel::double_base(phy.value_number, phy.unit_type)) != (ariel::double_base(phy2.value_number, phy2.unit_type));
 };
 
 
@@ -186,13 +160,11 @@ istream& ariel::operator>> (istream& input, PhysicalNumber& other){
     int data_number;
     string unit;
     Unit u;
-
-   
     ostringstream os;       
     input >> os.rdbuf();    
     string str = os.str();  
-    int unitSize = verif_string_unit(str); 
-int data_numberSize = data_numberCorrect(str); 
+    int unitSize =ariel::verif_string_unit(str); 
+int data_numberSize = ariel::data_numberCorrect(str); 
 
   
     ios::pos_type startPosition = input.tellg();
@@ -205,8 +177,8 @@ int data_numberSize = data_numberCorrect(str);
         input.clear(errorState);
 
     } else {
-        other.value_number = getdata_number(str);
-        other.unit_type = get_Unit(unitSize);
+        other.value_number = ariel::getdata_number(str);
+        other.unit_type = ariel::get_Unit(unitSize);
     }
 
     return input;
@@ -235,7 +207,7 @@ int data_numberSize = data_numberCorrect(str);
 
 
 
-int verif_string_unit(string str){
+int ariel::verif_string_unit(string str){
     int result = 0;
     int size = size_uni(str);
   
@@ -270,7 +242,7 @@ int verif_string_unit(string str){
 
 
 
-int data_numberCorrect(string str)
+int ariel::data_numberCorrect(string str)
 {
     int size = str.length()-size_uni(str)-2;
     string str_unit = str.substr(0, size);
@@ -287,16 +259,16 @@ int data_numberCorrect(string str)
 
 
 
-double getdata_number(string str){
+double ariel::getdata_number(string str){
     return stod(str.substr(0, (str.length() - ( size_uni(str)) - 2)));
 }
 
 
-bool checkType (Unit unit_a, Unit unit_b){
+bool ariel::checkType (Unit unit_a, Unit unit_b){
     return (((int)unit_a - 1) / 3) == (((int)unit_b - 1) / 3);
 }
 
-double double_base(double value_number, Unit temp_unit){
+double ariel::double_base(double value_number, Unit temp_unit){
     if(temp_unit == Unit::SEC || temp_unit == Unit::G|| temp_unit == Unit::CM ){
         return value_number;
     }
@@ -316,7 +288,7 @@ double double_base(double value_number, Unit temp_unit){
     }
 }
 
-double unit_double(double value_number, Unit unit_temp){
+double ariel::unit_double(double value_number, Unit unit_temp){
     if(unit_temp == Unit::SEC ||unit_temp == Unit::CM || unit_temp == Unit::G){
         return value_number;
     }
@@ -337,9 +309,10 @@ double unit_double(double value_number, Unit unit_temp){
 }
 
 
-int size_uni(string str){
+int ariel::size_uni(string str){
    
-    if(str.at(str.length() - 1)  != ']'){
+    if(str.at(str.length() - 1)  != ']')
+    {
         throw std::out_of_range{"Error Imput"};
         return 0;
     }
@@ -348,37 +321,27 @@ int size_uni(string str){
     while((str.at(str.length() - unit_size - 1) >= 'a' )  &&  
                                                             (str.at(str.length() - unit_size - 1) <= 'z')){
         unit_size++;
-    }
-    
-    if(str.at(str.length() - unit_size - 1) != '[')
-            return 0;
+        }
+    if(str.at(str.length() - unit_size - 1) != '[')    return 0;
+
     return unit_size - 1;
 }
 
 
 
-Unit get_Unit(int unit_number){
+Unit ariel::get_Unit(int unit_number){
     Unit temp;
     switch (unit_number)
     {
-        case 1: temp = Unit::CM;
-            break;
-        case 2: temp = Unit::M;
-            break;
-        case 3: temp = Unit::KM;
-            break;
-        case 4: temp = Unit::SEC;
-            break;
-        case 5: temp = Unit::MIN;
-            break;
-        case 6: temp = Unit::HOUR;
-            break;
-        case 7: temp = Unit::G;
-            break;
-        case 8: temp = Unit::KG;
-            break;    
-        case 9: temp = Unit::TON;
-            break;
+        case 1: temp = Unit::CM;break;
+        case 2: temp = Unit::M;break;
+        case 3: temp = Unit::KM;break;
+        case 4: temp = Unit::SEC;break;
+        case 5: temp = Unit::MIN;break;
+        case 6: temp = Unit::HOUR;break;
+        case 7: temp = Unit::G;break;
+        case 8: temp = Unit::KG;break;    
+        case 9: temp = Unit::TON;break;
     }
     return temp;
 } 
