@@ -258,21 +258,25 @@ int verif_string_unit(string str){
 
 
 
-int data_numberCorrect(string str){
-    int unitSize = size_uni(str);
-    int size = str.length() - unitSize - 2;
-    string value_number = str.substr(0, size);
-    int dotCount = 0;
-    for(int i = 0; i < size; i++){
-        if(value_number.at(i) < '0' || value_number.at(i) > '9'){
-            if(value_number.at(i) == '.'){
-                dotCount++;
+int data_numberCorrect(string str)
+{
+    int size = str.length()-size_uni(str)-2;
+    string str_unit = str.substr(0, size);
+    int conter = 0;
+    for(int i = 0; i < size; i++)
+    {
+        if(str_unit.at(i) > '9'||str_unit.at(i) < '0' ){
+            if(str_unit.at(i) == '.')
+            {
+                conter++;
             }
-            else{
+            else
+            {
                 return 0;
             }
         }
-        if(dotCount > 1){
+        if(conter > 1)
+        {
             return 0;
         }
     }
@@ -282,18 +286,12 @@ int data_numberCorrect(string str){
 
 
 double getdata_number(string str){
-    int unitSize = size_uni(str); 
-    int size = str.length() - unitSize - 2;
-    string data = str.substr(0, size);
-    double data_number = stod(data);
-    return data_number;
+    return stod(str.substr(0, (str.length() - ( size_uni(str)) - 2)));
 }
 
 
 bool checkType (Unit unit_a, Unit unit_b){
-    int this_type = ((int)unit_a - 1) / 3;
-    int other_type = ((int)unit_b - 1) / 3;
-    return this_type == other_type;
+    return (((int)unit_a - 1) / 3) == (((int)unit_b - 1) / 3);
 }
 
 double double_base(double value_number, Unit temp_unit){
