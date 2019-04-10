@@ -178,7 +178,7 @@ ostream& ariel::operator<< (ostream& os, const PhysicalNumber& p_temp) {
          default :
                 cout<< "no change"<<endl;
     }
-    return (os << p_temp.value_number << '[' << unit << ']');
+    return (os << p_temp.value_number << '[' << unit_return << ']');
 };
 
 
@@ -359,7 +359,7 @@ int size_uni(string str){
 
 Unit get_Unit(int unit_number){
     Unit temp;
-    switch (unit)
+    switch (unit_number)
     {
         case 1: temp = Unit::CM;
             break;
