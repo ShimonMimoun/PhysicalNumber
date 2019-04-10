@@ -22,8 +22,7 @@ PhysicalNumber ariel::PhysicalNumber::operator+(const PhysicalNumber& other) {
 throw std::invalid_argument("you cant using operation '+' with differnt types.");    }
     else{
         double temp_num = (double_base(this->value_number, this->unit_type))+(double_base(other.value_number, other.unit_type));
-        temp_num = unit_double(temp_num, this->unit_type);
-        return PhysicalNumber(temp_num, this->unit_type);
+        return PhysicalNumber(unit_double(temp_num, this->unit_type), this->unit_type);
     }
 };
 
@@ -35,8 +34,7 @@ PhysicalNumber ariel::PhysicalNumber::operator-(const PhysicalNumber& other) {
         double temp_num = double_base(this->value_number, this->unit_type);
         double othervalue_number = double_base(other.value_number, other.unit_type);
         temp_num -= othervalue_number;
-        temp_num = unit_double(temp_num, this->unit_type);
-        return PhysicalNumber(temp_num, this->unit_type);
+        return PhysicalNumber(unit_double(temp_num, this->unit_type), this->unit_type);
     }
 };
 
@@ -48,8 +46,7 @@ PhysicalNumber& ariel::PhysicalNumber::operator+=(const PhysicalNumber& other) {
         double temp_num = double_base(this->value_number, this->unit_type);
         double othervalue_number = double_base(other.value_number, other.unit_type);
         temp_num += othervalue_number;
-        temp_num = unit_double(temp_num, this->unit_type);
-        this->value_number = temp_num;
+        this->value_number = unit_double(temp_num, this->unit_type);
     }
     return *this;
 };
@@ -62,8 +59,7 @@ PhysicalNumber& ariel::PhysicalNumber::operator-=(const PhysicalNumber& other) {
         double temp_num = double_base(this->value_number, this->unit_type);
         double othervalue_number = double_base(other.value_number, other.unit_type);
         temp_num -= othervalue_number;
-        temp_num = unit_double(temp_num, this->unit_type);
-        this->value_number = temp_num;
+        this->value_number = unit_double(temp_num, this->unit_type);;
     }
     return *this;
 };
@@ -85,9 +81,7 @@ bool ariel::operator== (const PhysicalNumber& phy, const PhysicalNumber& phy2){
          throw std::invalid_argument("you cant using operation '==' with differnt types.");
     }
 
-    double value_number1 = double_base(phy.value_number, phy.unit_type);
-    double value_number2 = double_base(phy2.value_number, phy2.unit_type);
-    return value_number1 == value_number2;
+    return (double_base(phy.value_number, phy.unit_type)) == (double_base(phy2.value_number, phy2.unit_type));
 };
 
 
