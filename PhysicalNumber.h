@@ -15,10 +15,6 @@ private:
 long double value_number;
 Unit unit_type;
 
-//---------------------------------
-//Helping Functions
-//---------------------------------
-
 public:
 //---------------------------------
 //constractors

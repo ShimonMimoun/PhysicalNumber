@@ -79,67 +79,67 @@ const PhysicalNumber ariel::PhysicalNumber::operator-() {
 
 
 
-bool ariel::operator== (const PhysicalNumber& p1, const PhysicalNumber& p2){
-    if(!checkType(p1.unit_type, p2.unit_type)){
+bool ariel::operator== (const PhysicalNumber& phy, const PhysicalNumber& phy2){
+    if(!checkType(phy.unit_type, phy2.unit_type)){
          throw std::invalid_argument("you cant using operation '==' with differnt types.");
     }
 
-    double value_number1 = double_base(p1.value_number, p1.unit_type);
-    double value_number2 = double_base(p2.value_number, p2.unit_type);
+    double value_number1 = double_base(phy.value_number, phy.unit_type);
+    double value_number2 = double_base(phy2.value_number, phy2.unit_type);
     return value_number1 == value_number2;
 };
 
 
-bool ariel::operator> (const PhysicalNumber& p1, const PhysicalNumber& p2){
-    if(!checkType(p1.unit_type, p2.unit_type)){
+bool ariel::operator> (const PhysicalNumber& phy, const PhysicalNumber& phy2){
+    if(!checkType(phy.unit_type, phy2.unit_type)){
          throw std::invalid_argument("you cant using operation '>' with differnt types.");
     }
-        double value_number1 = double_base(p1.value_number, p1.unit_type);
-    double value_number2 = double_base(p2.value_number, p2.unit_type);
+        double value_number1 = double_base(phy.value_number, phy.unit_type);
+    double value_number2 = double_base(phy2.value_number, phy2.unit_type);
     return value_number1 > value_number2;
 };
 
 
-bool ariel::operator< (const PhysicalNumber& p1, const PhysicalNumber& p2){
-    if(!checkType(p1.unit_type, p2.unit_type)){
+bool ariel::operator< (const PhysicalNumber& phy, const PhysicalNumber& phy2){
+    if(!checkType(phy.unit_type, phy2.unit_type)){
         throw std::out_of_range{"Error: Numbers with differents type..."};
     }
 
-    double value_number1 = double_base(p1.value_number, p1.unit_type);
-    double value_number2 = double_base(p2.value_number, p2.unit_type);
+    double value_number1 = double_base(phy.value_number, phy.unit_type);
+    double value_number2 = double_base(phy2.value_number, phy2.unit_type);
     return value_number1 < value_number2;
 };
 
-bool ariel::operator>= (const PhysicalNumber& p1, const PhysicalNumber& p2){
-    if(!checkType(p1.unit_type, p2.unit_type)){
+bool ariel::operator>= (const PhysicalNumber& phy, const PhysicalNumber& phy2){
+    if(!checkType(phy.unit_type, phy2.unit_type)){
          throw std::invalid_argument("you cant using operation '>=' with differnt types.");
     }
 
-    double value_number1 = double_base(p1.value_number, p1.unit_type);
-    double value_number2 = double_base(p2.value_number, p2.unit_type);
+    double value_number1 = double_base(phy.value_number, phy.unit_type);
+    double value_number2 = double_base(phy2.value_number, phy2.unit_type);
     return value_number1 >= value_number2;
 };
 
 
-bool ariel::operator<= (const PhysicalNumber& p1, const PhysicalNumber& p2){    
-    if(!checkType(p1.unit_type, p2.unit_type)){
+bool ariel::operator<= (const PhysicalNumber& phy, const PhysicalNumber& phy2){    
+    if(!checkType(phy.unit_type, phy2.unit_type)){
          throw std::invalid_argument("you cant using operation '<=' with differnt types.");
     }
 
-    double value_number1 = double_base(p1.value_number, p1.unit_type);
-    double value_number2 = double_base(p2.value_number, p2.unit_type);
+    double value_number1 = double_base(phy.value_number, phy.unit_type);
+    double value_number2 = double_base(phy2.value_number, phy2.unit_type);
     return value_number1 <= value_number2;
 };
 
 
 
-bool ariel::operator!= (const PhysicalNumber& p1, const PhysicalNumber& p2){
-    if(!checkType(p1.unit_type, p2.unit_type)){
+bool ariel::operator!= (const PhysicalNumber& phy, const PhysicalNumber& phy2){
+    if(!checkType(phy.unit_type, phy2.unit_type)){
          throw std::invalid_argument("you cant using operation '!=' with differnt types.");
     }
 
-    double value_number1 = double_base(p1.value_number, p1.unit_type);
-    double value_number2 = double_base(p2.value_number, p2.unit_type);
+    double value_number1 = double_base(phy.value_number, phy.unit_type);
+    double value_number2 = double_base(phy2.value_number, phy2.unit_type);
     return value_number1 != value_number2;
 };
 
