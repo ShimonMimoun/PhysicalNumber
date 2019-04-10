@@ -295,75 +295,62 @@ bool checkType (Unit unit_a, Unit unit_b){
 }
 
 double double_base(double value_number, Unit temp_unit){
-    if(temp_unit == Unit::CM || temp_unit == Unit::SEC || temp_unit == Unit::G){
+    if(temp_unit == Unit::SEC || temp_unit == Unit::G|| temp_unit == Unit::CM ){
         return value_number;
     }
     else{
-        double result = 0;
+        double result_double = 0;
         switch(temp_unit){
-            case Unit::MIN: result = value_number * 60;
-                break;
-            case Unit::HOUR: result = value_number * 3600;
-                break;
-            case Unit::KG: result = value_number * 1000;
-                break;
-            case Unit::TON: result = value_number * 1000 * 1000;
-                break;
-            case Unit::M: result = value_number * 100;
-                break;
-            case Unit::KM: result = value_number * 1000 * 100;  
-                break; 
+            case Unit::M: result_double = value_number * 100; break;
+            case Unit::KM: result_double = value_number * 1000 * 100; break; 
+            case Unit::MIN: result_double = value_number * 60; break;
+            case Unit::HOUR: result_double = value_number * 3600; break;
+            case Unit::KG: result_double = value_number * 1000;  break;
+            case Unit::TON: result_double = value_number * 1000 * 1000; break;
                 default :
-                cout<< "no change"<<endl;
+                cout<< "The value don't change "<<endl;
         }
-        return result;
+        return result_double;
     }
 }
 
 double unit_double(double value_number, Unit unit_temp){
-    if(unit_temp == Unit::CM || unit_temp == Unit::SEC || unit_temp == Unit::G){
+    if(unit_temp == Unit::SEC ||unit_temp == Unit::CM || unit_temp == Unit::G){
         return value_number;
     }
     else{
-        double result = 0;
+        double result_unit = 0;
         switch(unit_temp){
-            case Unit::MIN: result = value_number / 60;
-                break;
-            case Unit::HOUR: result = value_number / 3600;
-                break;
-            case Unit::KG: result = value_number / 1000;
-                break;
-            case Unit::TON: result = value_number / (1000 * 1000);
-                break;
-            case Unit::M: result = value_number / 100;
-                break;
-            case Unit::KM: result = value_number / (1000 * 100);  
-                break;  
+              case Unit::M: result_unit = value_number / 100;  break;
+            case Unit::KM: result_unit = value_number / (1000 * 100); break;  
+            case Unit::MIN: result_unit = value_number / 60; break;
+            case Unit::HOUR: result_unit = value_number / 3600; break;
+            case Unit::KG: result_unit = value_number / 1000;  break;
+            case Unit::TON: result_unit = value_number / (1000 * 1000);  break;
+          
                 default :
-                cout<< "no change"<<endl;
+                cout<< "The value don't change"<<endl;
         }
-        return result;
+        return result_unit;
     }
 }
 
 
 int size_uni(string str){
     int unit_size = 1;
-    int size = str.length();
-    
-    if(str.at(size - 1)  != ']'){
-        throw std::out_of_range{"Input not correct!!!"};
+    if(str.at(str.length() - 1)  != ']'){
+        throw std::out_of_range{"Error Imput"};
         return 0;
     }
     
-    while(str.at(size - unit_size - 1) >= 'a' && str.at(size - unit_size - 1) <= 'z'){
+    while((str.at(str.length() - unit_size - 1) >= 'a' )  &&  
+                                                            (str.at(str.length() - unit_size - 1) <= 'z')){
         unit_size++;
     }
     
-    if(str.at(size - unit_size - 1) != '['){
-        return 0;
-    }
-
+    if(str.at(str.length() - unit_size - 1) != '[')
+            return 0;
+    
     return unit_size - 1;
 }
 
