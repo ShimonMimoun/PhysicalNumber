@@ -6,14 +6,15 @@ using namespace ariel;
 #include <sstream>
 #include <string.h>
 
+Unit get_Unit(int unit);
 bool checkType (Unit unit_a, Unit unit_b);
+double getdata_number(string str);
 double double_base(double data_number, Unit temp_unit);
 double unit_double(double data_number, Unit unit_temp);
 int size_uni(string str);
 int verif_string_unit(string str);
 int data_numberCorrect(string str);
-double getdata_number(string str);
-Unit get_Unit(int unit);
+
 
 
 PhysicalNumber ariel::PhysicalNumber::operator+(const PhysicalNumber& other) {
@@ -138,9 +139,7 @@ bool ariel::operator!= (const PhysicalNumber& phy, const PhysicalNumber& phy2){
          throw std::invalid_argument("you cant using operation '!=' with differnt types.");
     }
 
-    double value_number1 = double_base(phy.value_number, phy.unit_type);
-    double value_number2 = double_base(phy2.value_number, phy2.unit_type);
-    return value_number1 != value_number2;
+    return (double_base(phy.value_number, phy.unit_type)) != (double_base(phy2.value_number, phy2.unit_type));
 };
 
 
@@ -166,7 +165,13 @@ PhysicalNumber ariel::PhysicalNumber::operator--(int num) {
 
 ostream& ariel::operator<< (ostream& os, const PhysicalNumber& p_temp) {
     string unit = "";
-    switch(p_temp.unit_type) {             
+    switch(p_temp.unit_type) {  
+        case Unit::G : unit = "g";
+        break;
+        case Unit::KG : unit = "kg";
+        break;
+        case Unit::TON : unit = "ton";
+        break;           
         case Unit::CM : unit = "cm";
         break;
         case Unit::M : unit = "m";
@@ -179,12 +184,7 @@ ostream& ariel::operator<< (ostream& os, const PhysicalNumber& p_temp) {
         break;
         case Unit::HOUR : unit = "hour";
         break;
-        case Unit::G : unit = "g";
-        break;
-        case Unit::KG : unit = "kg";
-        break;
-        case Unit::TON : unit = "ton";
-        break;
+       
          default :
                 cout<< "no change"<<endl;
     }
