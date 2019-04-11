@@ -313,7 +313,7 @@ int ariel::size_uni(string str){
    
     if(str.at(str.length() - 1)  != ']')
     {
-        throw std::out_of_range{"Error Imput"};
+        //throw std::out_of_range{"Error Imput"};
         return 0;
     }
 
